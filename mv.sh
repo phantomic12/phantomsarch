@@ -1,0 +1,1 @@
+mv "phantoms-arch_$(date +%y%m)".iso images/"phantoms-arch_$(date +%y%m)".iso
