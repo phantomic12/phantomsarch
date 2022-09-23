@@ -31,7 +31,7 @@ jobs:
     - name: Download Artifacts
       uses: actions/download-artifact@v3.0.0
     - name: Prepare for Upload
-       run: |
+    - run: |
         mkdir images
       mv phantoms-arch_"$(date +%y%m)".iso images/phantoms-arch_"$(date +%y%m)".iso
       ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
