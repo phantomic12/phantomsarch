@@ -34,6 +34,5 @@ jobs:
       run: |
       mkdir images
       ./mv.sh
-      mv phantoms-arch_"$(date +%y%m)".iso images/phantoms-arch_"$(date +%y%m)".iso
       ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
       sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
