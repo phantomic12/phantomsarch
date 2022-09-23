@@ -3,7 +3,7 @@ name: Build ISOs
 on: workflow_dispatch
 
 jobs:
-  build-x86_64:
+  buildiso:
     runs-on: ubuntu-latest
     container:
       image: archlinux:latest
