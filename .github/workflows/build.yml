@@ -31,8 +31,8 @@ jobs:
     - name: Download Artifacts
       uses: actions/download-artifact@v3.0.0
     - name: Prepare for Upload
-      run: |
-      mkdir iso-$"(date +"%d-%m-%Y")"
-      mv phantoms-arch_"$(date +%y%m)".iso iso-$ "(date +"%d-%m-%Y")"/phantoms-arch_"$(date +%y%m)".iso
+       run: |
+        mkdir images
+      mv phantoms-arch_"$(date +%y%m)".iso images/phantoms-arch_"$(date +%y%m)".iso
       ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-      sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh is/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
+      sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
