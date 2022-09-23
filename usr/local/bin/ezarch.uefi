@@ -8,7 +8,7 @@
 # Define Variables
 # ----------------------------------------
 
-MYTMZ="America/Phoenix"
+MYTMZ="America/New_York"
 # List possible timezones from: /usr/share/zoneinfo/...
 
 LCLST="en_US"

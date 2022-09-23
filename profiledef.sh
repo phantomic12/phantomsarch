@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
-iso_name="ezarcher-cinn"
-iso_label="EZARCHER-CINN_$(date +%y%m)"
+iso_name="phantoms-arch"
+iso_label="phantoms-arch_$(date +%y%m)"
 iso_publisher="Ezarcher Linux <https://sourceforge.net/projects/ezarch/>"
 iso_application="Ezarcher DVD"
 iso_version="$(date +%y%m)"

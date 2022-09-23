@@ -1,0 +1,37 @@
+name: Build Image
+
+on: workflow_dispatch
+
+jobs:
+  build-x86_64
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v3
+      - run: pacman -Syu --noconfirm
+      - run: ./steps.sh
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: phantoms-arch_"$(date +%y%m)".iso
+          path: out/phantoms-arch_"$(date +%y%m)".iso
+   publish:
+    if: ${{ always() }}
+    needs: [build-home-x86_64]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup SSH
+      uses: fastai/workflows/ssh@master
+      with:
+          ssh_key: ${{ secrets.SSH_KEY }}
+          key_file: id_ecdsa
+    - uses: actions/checkout@v3
+    - name: Download Artifacts
+      uses: actions/download-artifact@v3.0.0
+    - name: Prepare for Upload
+      run: mkdir iso-$"(date +"%d-%m-%Y")"
+      mv phantoms-arch_"$(date +%y%m)".iso iso-$ "(date +"%d-%m-%Y")"/phantoms-arch_"$(date +%y%m)".iso
+      ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+      sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh is/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"

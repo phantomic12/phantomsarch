@@ -333,8 +333,8 @@ arc-icon-theme
 asunder
 blueman
 brasero
-cinnamon
-cinnamon-translations
+gnome
+gnome-tweaks
 dconf-editor
 epdfview
 file-roller
@@ -358,9 +358,6 @@ tmux
 transmission-gtk
 viewnior
 xed
-
-# Display Manager
-sddm
 
 # Calamares dependencies (not listed elsewhere)
 boost
@@ -397,4 +394,22 @@ ckbcomp
 mkinitcpio-openswap
 
 # AUR
-trizen
+yay
+
+# Extras
+brave-bin
+brave-nightly-bin
+bottles
+docker
+discord-canary
+fish
+github-desktop
+go
+jdownloader2
+microsoft-edge-dev-bin
+microsoft-edge-beta-bin
+nodejs
+rclone
+steam
+ventoy-bin
+visual-studio-code-insiders-bin
