@@ -10,30 +10,28 @@ jobs:
       options: --privileged
     steps:
       - uses: actions/checkout@v3
-      - run: pacman -Syu --noconfirm
       - run: ./steps.sh
       - name: Upload Artifacts
-      - uses: actions/upload-artifact@v3.0.0
-      - with:
+        uses: actions/upload-artifact@v3.0.0
+        with:
           name: phantoms-arch_"$(date +%y%m)".iso
           path: out/phantoms-arch_"$(date +%y%m)".iso
   publish:
-      if: ${{ always() }}
-      needs: [buildimage]
-      runs-on: ubuntu-latest
-      steps:
-      - name: Setup SSH
-      - uses: fastai/workflows/ssh@master
-      - with:
+    if: ${{ always() }}
+    needs: [buildimage]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup SSH
+      uses: fastai/workflows/ssh@master
+      with:
           ssh_key: ${{ secrets.SSH_KEY }}
           key_file: id_ecdsa
-      - uses: actions/checkout@v3
-      - name: Download Artifacts
-      - uses: actions/download-artifact@v3.0.0
-      - name: Prepare for Upload
-        run: |
-            mkdir images
-            ./mv.sh
-            ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-            sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}
-        
+    - uses: actions/checkout@v3
+    - name: Download Artifacts
+      uses: actions/download-artifact@v3.0.0
+    - name: Prepare for Upload
+      run: |
+        mkdir images
+        ./mv.sh       
+        ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+        sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
