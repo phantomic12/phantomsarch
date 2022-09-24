@@ -1,4 +1,4 @@
-name: Build ISOs
+name: Build Images
 
 on: workflow_dispatch
 
@@ -17,9 +17,9 @@ jobs:
         with:
           name: phantoms-arch_"$(date +%y%m)".iso
           path: out/phantoms-arch_"$(date +%y%m)".iso
-    publish:
+  publish:
       if: ${{ always() }}
-      needs: [build-home-x86_64]
+      needs: [buildiso]
       runs-on: ubuntu-latest
       steps:
       - name: Setup SSH
@@ -27,12 +27,13 @@ jobs:
         with:
           ssh_key: ${{ secrets.SSH_KEY }}
           key_file: id_ecdsa
-    - uses: actions/checkout@v3
-    - name: Download Artifacts
-      uses: actions/download-artifact@v3.0.0
-    - name: Prepare for Upload
-      run: |
-      mkdir images
-      ./mv.sh
-      ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-      sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
+      - uses: actions/checkout@v3
+      - name: Download Artifacts
+      - uses: actions/download-artifact@v3.0.0
+      - name: Prepare for Upload
+        run: |
+            mkdir images
+            ./mv.sh
+            ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+            sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}
+        
