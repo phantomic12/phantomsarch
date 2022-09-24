@@ -3,7 +3,7 @@ name: Build Images
 on: workflow_dispatch
 
 jobs:
-  buildiso:
+  buildimage:
     runs-on: ubuntu-latest
     container:
       image: archlinux:latest
@@ -19,7 +19,7 @@ jobs:
           path: out/phantoms-arch_"$(date +%y%m)".iso
   publish:
       if: ${{ always() }}
-      needs: [buildiso]
+      needs: [buildimage]
       runs-on: ubuntu-latest
       steps:
       - name: Setup SSH
