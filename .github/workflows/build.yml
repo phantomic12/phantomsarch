@@ -10,6 +10,7 @@ jobs:
       options: --privileged
     steps:
       - uses: actions/checkout@v3
+      - run: pacman -Sy
       - run: ./steps.sh
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3.0.0
