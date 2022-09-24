@@ -15,8 +15,8 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3.0.0
         with:
-          name: phantoms-arch_"$(date +%y%m)"-x86_64.iso
-          path: out/phantoms-arch_"$(date +%y%m)"-x86_64.iso
+          name: phantoms-arch-x86_64.iso
+          path: out/phantoms-arch-x86_64.iso
   publish:
     if: ${{ always() }}
     needs: [buildimage]
@@ -32,7 +32,7 @@ jobs:
       uses: actions/download-artifact@v3.0.0
     - name: Prepare for Upload
       run: |
-        mkdir images"
+        mkdir images-"$(date +%y%m)"
         ./mv.sh       
         ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-        sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
+        sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images-"$(date +%y%m)"/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
