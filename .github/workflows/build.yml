@@ -16,7 +16,7 @@ jobs:
         uses: actions/upload-artifact@v3.0.0
         with:
           name: phantoms-arch-x86_64.iso
-          path: out/phantoms-arch-x86_64-2209.iso
+          path: out/phantoms-arch-2209-x86_64.iso
   publish:
     if: ${{ always() }}
     needs: [buildimage]
