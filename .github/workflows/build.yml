@@ -33,6 +33,6 @@ jobs:
     - name: Prepare for Upload
       run: |
         mkdir images-"$(date +%y%m)"
-        ./mv.sh       
+        sh mv.sh       
         ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
         sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images-"$(date +%y%m)"/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
