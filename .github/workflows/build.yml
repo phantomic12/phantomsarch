@@ -32,7 +32,7 @@ jobs:
       uses: actions/download-artifact@v3.0.0
     - name: Prepare for Upload
       run: |
-        mkdir images-"$(date +%y%m)"
+        mkdir images/"$(date +%y%m)"
         sh mv.sh       
         ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-        sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images-"$(date +%y%m)"/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
+        sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
