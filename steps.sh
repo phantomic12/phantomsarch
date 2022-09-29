@@ -124,7 +124,7 @@ ln -sf /usr/lib/systemd/system/cups.service ./ezreleng/airootfs/etc/systemd/syst
 ln -sf /usr/lib/systemd/system/cups.socket ./ezreleng/airootfs/etc/systemd/system/sockets.target.wants/cups.socket
 ln -sf /usr/lib/systemd/system/cups.path ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/cups.path
 ln -sf /usr/lib/systemd/system/bluetooth.service ./ezreleng/airootfs/etc/systemd/system/dbus-org.bluez.service
-ln -sf /usr/lib/systemd/system/sddm.service ./ezreleng/airootfs/etc/systemd/system/display-manager.service
+ln -sf /usr/lib/systemd/system/gdm.service ./ezreleng/airootfs/etc/systemd/system/display-manager.service
 }
 
 # Copy files to customize the ISO
