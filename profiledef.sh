@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
-iso_name="phantoms-arch"
-iso_label="phantoms-arch"
+iso_name="ezarcher-gnome"
+iso_label="EZARCHER-GNOME_$(date +%y%m%d)"
 iso_publisher="Ezarcher Linux <https://sourceforge.net/projects/ezarch/>"
 iso_application="Ezarcher DVD"
-iso_version="$(date +%y%m)"
+iso_version="$(date +%y%m%d)"
 install_dir="arch"
 buildmodes=('iso')
 bootmodes=('bios.syslinux.mbr' 'bios.syslinux.eltorito'

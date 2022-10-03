@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # EZ Arch Installer - UEFI
-# Revision: 2022.09.03 -- by eznix (https://sourceforge.net/projects/ezarch/)
+# Revision: 2022.10.01 -- by eznix (https://sourceforge.net/projects/ezarch/)
 # (GNU/General Public License version 3.0)
 
 # ----------------------------------------
 # Define Variables
 # ----------------------------------------
 
-MYTMZ="America/New_York"
+MYTMZ="America/Phoenix"
 # List possible timezones from: /usr/share/zoneinfo/...
 
 LCLST="en_US"
@@ -391,7 +391,7 @@ instmedia () {
 
 instnet () {
   clear
-  pacstrap /mnt avahi b43-fwcutter broadcom-wl-dkms dhclient dmraid dnsmasq dnsutils ethtool filezilla firefox ipw2100-fw ipw2200-fw iwd gnu-netcat net-tools networkmanager networkmanager-openvpn network-manager-applet nm-connection-editor nfs-utils nilfs-utils nss-mdns openconnect openresolv openssh openssl openvpn r8168 samba vsftpd wget wireless-regdb wireless_tools whois wpa_supplicant
+  pacstrap /mnt avahi b43-fwcutter broadcom-wl-dkms dhclient dmraid dnsmasq dnsutils ethtool filezilla firefox iwd gnu-netcat net-tools networkmanager networkmanager-openvpn network-manager-applet nm-connection-editor nfs-utils nilfs-utils nss-mdns openconnect openresolv openssh openssl openvpn r8168 samba vsftpd wget wireless-regdb wireless_tools whois wpa_supplicant
   sleep 2
   arch-chroot /mnt systemctl enable NetworkManager.service
   clear

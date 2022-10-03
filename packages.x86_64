@@ -142,6 +142,7 @@ dkms
 dvd+rw-tools
 efitools
 encfs
+f2fs-tools
 fuse3
 fwupd
 git
@@ -232,21 +233,21 @@ mencoder
 mjpegtools
 mpv
 poppler-glib
-# Pipewire - comment pulseaudio packages if using pipewire
-# pipewire
-# pipewire-alsa
-# pipewire-docs
-# pipewire-jack
-# pipewire-media-session
-# pipewire-pulse
-# alsa-card-profiles
-# gst-plugin-pipewire
-# Pulseaudio - comment pipewire packages if using pulseaudio
-pulseaudio
-pulseaudio-alsa
-pulseaudio-bluetooth
-pulseaudio-equalizer
-pulseaudio-jack
+# Pipewire - comment out pulseaudio packages if using pipewire
+pipewire
+pipewire-alsa
+pipewire-docs
+pipewire-jack
+pipewire-pulse
+alsa-card-profiles
+gst-plugin-pipewire
+wireplumber
+# Pulseaudio - comment out pipewire packages if using pulseaudio
+# pulseaudio
+# pulseaudio-alsa
+# pulseaudio-bluetooth
+# pulseaudio-equalizer
+# pulseaudio-jack
 simplescreenrecorder
 sox
 transcode
@@ -321,32 +322,41 @@ python-reportlab
 simple-scan
 system-config-printer
 
-# Cinnamon
+# Gnome
 accountsservice
 adwaita-icon-theme
-adapta-gtk-theme
+adwaita-qt5
+adwaita-qt6
 aisleriot
 arc-gtk-theme
-arc-icon-theme
+arc-solid-gtk-theme
 asunder
-blueman
 brasero
-gnome
-gnome-tweaks
 dconf-editor
-epdfview
-file-roller
 geany
+gedit
+ghex
+gnome
+gnome-applets
+gnome-backgrounds
+gnome-bluetooth-3.0
+gnome-control-center
 gnome-firmware
+gnome-icon-theme-extras
+gnome-keyring
+gnome-logs
 gnome-packagekit
-gnome-terminal
+gnome-power-manager
+gnome-remote-desktop
+gnome-screenshot
+gnome-software-packagekit-plugin
+gnome-tweaks
 gsound
-gtk-engine-murrine
+guake
 guvcview
 meld
-nemo
-nemo-fileroller
-nemo-share
+mutter
+nautilus
 neofetch
 papirus-icon-theme
 pavucontrol
@@ -354,8 +364,10 @@ polkit-gnome
 tldr
 tmux
 transmission-gtk
-viewnior
-xed
+xdg-desktop-portal-gnome
+
+# Display Manager
+gdm
 
 # Calamares dependencies (not listed elsewhere)
 boost
@@ -392,26 +404,4 @@ ckbcomp
 mkinitcpio-openswap
 
 # AUR
-yay
-
-# Extras
-brave-bin
-brave-nightly-bin
-bottles
-docker
-discord-canary
-fish
-flatpak
-filezilla
-github-desktop
-go
-jdownloader2
-lutris
-microsoft-edge-dev-bin
-microsoft-edge-beta-bin
-nodejs
-playonlinux
-rclone
-steam
-ventoy-bin
-visual-studio-code-insiders-bin
+trizen

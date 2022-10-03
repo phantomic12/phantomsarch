@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Revision: 2022.07.30
+# Revision: 2022.10.01
 # (GNU/General Public License version 3.0)
 # by eznix (https://sourceforge.net/projects/ezarch/)
 
@@ -64,16 +64,13 @@ sleep 2
 prepreqs () {
 pacman -S --noconfirm archlinux-keyring
 pacman -S --needed --noconfirm archiso mkinitcpio-archiso
-pacman-key --init
-pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
-pacman-key --lsign-key FBA220DFC880C036
-pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
 }
 
 # Copy ezreleng to working directory
 cpezreleng () {
 cp -r /usr/share/archiso/configs/releng/ ./ezreleng
 rm -r ./ezreleng/airootfs/etc/pacman.d/hooks
+rm ./ezreleng/airootfs/etc/motd
 rm -r ./ezreleng/grub
 rm -r ./ezreleng/efiboot
 rm -r ./ezreleng/syslinux
@@ -89,28 +86,24 @@ rmezrepo () {
 rm -r /opt/ezrepo
 }
 
-# Delete automatic login
-nalogin () {
-rm -r ./ezreleng/airootfs/etc/systemd/system/getty@tty1.service.d
-}
-
-# Remove cloud-init, hyper-v, vmtoolsd, sshd, & iwd services
+# Remove auto-login, cloud-init, hyper-v, ied, sshd, & vmware services
 rmunitsd () {
+rm -r ./ezreleng/airootfs/etc/systemd/system/getty@tty1.service.d
+rm ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/qemu-guest-agent.service
 rm ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/hv_fcopy_daemon.service
 rm ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/hv_kvp_daemon.service
 rm ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/hv_vss_daemon.service
-rm ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/vmtoolsd.service
 rm ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/vmware-vmblock-fuse.service
+rm ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/vmtoolsd.service
 rm ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/sshd.service
 rm ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/iwd.service
 rm -r ./ezreleng/airootfs/etc/systemd/system/cloud-init.target.wants
 }
 
-# Add Bluetooth, cups, haveged, NetworkManager, & sddm systemd links
+# Add cups, haveged, NetworkManager, & sddm systemd links
 addnmlinks () {
 mkdir -p ./ezreleng/airootfs/etc/systemd/system/network-online.target.wants
 mkdir -p ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants
-mkdir -p ./ezreleng/airootfs/etc/systemd/system/bluetooth.target.wants
 mkdir -p ./ezreleng/airootfs/etc/systemd/system/printer.target.wants
 mkdir -p ./ezreleng/airootfs/etc/systemd/system/sockets.target.wants
 mkdir -p ./ezreleng/airootfs/etc/systemd/system/timers.target.wants
@@ -118,12 +111,10 @@ mkdir -p ./ezreleng/airootfs/etc/systemd/system/sysinit.target.wants
 ln -sf /usr/lib/systemd/system/NetworkManager-wait-online.service ./ezreleng/airootfs/etc/systemd/system/network-online.target.wants/NetworkManager-wait-online.service
 ln -sf /usr/lib/systemd/system/NetworkManager-dispatcher.service ./ezreleng/airootfs/etc/systemd/system/dbus-org.freedesktop.nm-dispatcher.service
 ln -sf /usr/lib/systemd/system/NetworkManager.service ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/NetworkManager.service
-ln -sf /usr/lib/systemd/system/bluetooth.service ./ezreleng/airootfs/etc/systemd/system/bluetooth.target.wants/bluetooth.service
 ln -sf /usr/lib/systemd/system/haveged.service ./ezreleng/airootfs/etc/systemd/system/sysinit.target.wants/haveged.service
 ln -sf /usr/lib/systemd/system/cups.service ./ezreleng/airootfs/etc/systemd/system/printer.target.wants/cups.service
 ln -sf /usr/lib/systemd/system/cups.socket ./ezreleng/airootfs/etc/systemd/system/sockets.target.wants/cups.socket
 ln -sf /usr/lib/systemd/system/cups.path ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/cups.path
-ln -sf /usr/lib/systemd/system/bluetooth.service ./ezreleng/airootfs/etc/systemd/system/dbus-org.bluez.service
 ln -sf /usr/lib/systemd/system/gdm.service ./ezreleng/airootfs/etc/systemd/system/display-manager.service
 }
 
@@ -243,7 +234,6 @@ cleanup
 cpezreleng
 addnmlinks
 cpezrepo
-nalogin
 rmunitsd
 cpmyfiles
 sethostname
