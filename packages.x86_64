@@ -407,14 +407,18 @@ mkinitcpio-openswap
 trizen
 
 # Extras
+bc
+bottles
 brave-bin
 brave-nightly-bin
-bottles
 docker
 discord-canary
+dmidecode
+ebtable
 fish
 flatpak
 filezilla
+freerdp
 github-desktop
 go
 jdownloader2
@@ -423,7 +427,10 @@ microsoft-edge-dev-bin
 microsoft-edge-beta-bin
 nodejs
 playonlinux
+qemu
 rclone
 steam
+vde2
+virt-manager
 ventoy-bin
 visual-studio-code-insiders-bin
