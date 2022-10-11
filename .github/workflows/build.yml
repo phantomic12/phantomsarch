@@ -12,8 +12,6 @@ jobs:
       - uses: actions/checkout@v3
       - run: pacman -Sy
       - run: sh steps.sh
-      - run: cd out
-      - run: mv phantoms-arch-*-x86_64.iso phantoms-arch-x86_64.iso
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3.0.0
         with:
