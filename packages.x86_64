@@ -145,6 +145,7 @@ os-prober
 yay
 
 #Extras
+base-devel
 brave-bin
 brave-nightly-bin
 bottles
