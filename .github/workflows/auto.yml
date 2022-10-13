@@ -1,10 +1,10 @@
-name: Build ISOs
+name: Automatically Build Images
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 */3 * *"
   workflow_dispatch:
 
 jobs:
