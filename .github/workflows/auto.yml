@@ -37,6 +37,6 @@ jobs:
     - name: Prepare for Upload
       run: |
         mkdir -p images/"$(date +"%d-%m-%Y")"
-        mv phantoms-arch-x86_64.iso images/"$(date +"%d-%m-%Y")"/phantoms-arch-x86_64.iso    
+        mv phantoms-arch-x86_64.iso images/gnome-iso/"$(date +"%d-%m-%Y")"/   
         ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
         sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
