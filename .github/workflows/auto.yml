@@ -2,7 +2,7 @@ name: Automatically Build Images
 
 on:
   push:
-    branches: [master]
+    branches: [gnome]
   schedule:
     - cron: "0 0 */3 * *"
 
