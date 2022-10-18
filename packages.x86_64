@@ -144,6 +144,7 @@ os-prober
 yay
 
 #Extras
+aria2c
 base-devel
 brave-bin
 brave-nightly-bin
@@ -162,6 +163,7 @@ lutris
 microsoft-edge-dev-bin
 microsoft-edge-beta-bin
 nodejs
+npm
 playonlinux
 rclone
 steam

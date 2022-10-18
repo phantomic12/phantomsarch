@@ -36,7 +36,6 @@ jobs:
       uses: actions/download-artifact@v3.0.0
     - name: Prepare for Upload
       run: |
-        mkdir -p images/gnome-iso/"$(date +"%d-%m-%Y")"
-        mv phantoms-arch-x86_64.iso images/gnome-iso/"$(date +"%d-%m-%Y")"/   
+        sh mkdate.sh  
         ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
         sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
