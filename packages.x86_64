@@ -166,6 +166,8 @@ microsoft-edge-beta-bin
 nodejs
 npm
 playonlinux
+python
+python-pip
 rclone
 steam
 ventoy-bin
