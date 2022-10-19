@@ -9,7 +9,7 @@ pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst
 pacman -Sy
 
 # mkarchiso run cmd
-mkarchiso -v -w ./work -o ./out .
+mkarchiso -v -w ./ -o ./out .
 
 # rename iso
 cd out
