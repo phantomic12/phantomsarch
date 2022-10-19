@@ -4,6 +4,7 @@ alsa-utils
 amd-ucode
 arch-install-scripts
 archinstall
+at-spi2-core
 b43-fwcutter
 base
 bind-tools
@@ -128,7 +129,7 @@ gnome-backgrounds
 gnome-software
 gnome-software-packagekit-plugin
 gvfs
-mutter
+mutter-dynamic-buffering
 nautilus
 xdg-user-dirs-gtk
 neofetch
