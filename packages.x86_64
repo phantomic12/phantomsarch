@@ -164,9 +164,17 @@ bluez
 blueman
 
 #AUR Helper
-paru
+yay
 
-#NVIDIA Drivers & Tools
-nvidia
-nvidia-utils
-nvidia-settings
+#Extras
+brave-bin
+chromium
+discord_arch_electron
+go
+google-chrome
+jdownloader2
+microsoft-edge-beta-bin
+nodejs
+npm
+python
+python-pip

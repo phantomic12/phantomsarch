@@ -1,5 +1,4 @@
 # pacman preparations
-pacman -Sy
 pacman -S --noconfirm archlinux-keyring
 pacman -S --needed --noconfirm archiso mkinitcpio-archiso
 pacman-key --init
