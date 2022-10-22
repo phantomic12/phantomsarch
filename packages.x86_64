@@ -3,12 +3,10 @@
 alsa-utils
 amd-ucode
 arch-install-scripts
-archinstall
-at-spi2-core
 b43-fwcutter
 base
 bind-tools
-brltty
+broadcom-wl
 btrfs-progs
 clonezilla
 cloud-init
@@ -103,73 +101,72 @@ xfsprogs
 xl2tpd
 zsh
 
-#Arch Linux GUI GNOME core
+#Arch Linux GUI Cinnamon Core
 xorg
-gdm
+lightdm
+lightdm-gtk-greeter
+xf86-input-libinput
+xdg-user-dirs
 bash-completion
 networkmanager
+base-devel
+pacman-contrib
+virtualbox-guest-utils
 
-#GNOME Applications
-cheese
+#Arch Linux GUI Cinnamon
+cinnamon
+alg-cinnamon-settings
+
+#ALG Cinnamon Applications
+gnome-terminal
+gnome-screenshot
 eog
 evince
 gedit
-gnome
-gnome-tweaks
-gnome-desktop
-gnome-clocks
-gnome-control-center
-gnome-keyring
-gnome-screenshot
-gnome-shell-extensions
-gnome-session
-gnome-shell
-gnome-terminal
-gnome-backgrounds
-gnome-software
-gnome-software-packagekit-plugin
-gvfs
-mutter
-nautilus
-xdg-user-dirs-gtk
+galculator
 neofetch
-noto-fonts
+bluez-utils
+pulseaudio-bluetooth
 
 #Installer
 grub
 calamares
-alg-pure-cala-config
+alg-theme-cala-config
 os-prober
 
-#AUR
-yay
+#browser
+firefox
+alg-firefox-settings
 
-#Extras
-aria2
-base-devel
-brave-bin
-brave-nightly-bin
-bottles
-chromium
-docker
-discord-canary
-fish
-flatpak
-filezilla
-github-desktop
-go
-heroku-cli-bin
-jdownloader2
-lutris
-microsoft-edge-dev-bin
-microsoft-edge-beta-bin
-nodejs
-npm
-playonlinux
-python
-python-pip
-rclone
-steam
-ventoy-bin
-visual-studio-code-insiders-bin
-virt-manager
+#media player
+vlc
+
+#office suite
+libreoffice-fresh
+
+#fonts
+ttf-ms-fonts
+ttf-roboto
+noto-fonts
+noto-fonts-cjk
+
+#themes
+tela-circle-icon
+qogir-gtk-theme-git
+mcmojave-cursors
+
+#printing
+cups
+system-config-printer
+
+#bluetooth
+bluez
+blueman
+
+#AUR Helper
+paru
+
+#NVIDIA Drivers & Tools
+nvidia
+nvidia-utils
+nvidia-settings
