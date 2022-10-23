@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
-iso_name="archlinux-gui-cinnamon"
-iso_label="ARCH_GUI_CINNAMON_$(date +%Y%m)"
-iso_publisher="DemonKiller <https://archlinuxgui.in>"
-iso_application="Arch Linux GUI Live/Rescue CD"
+iso_name="phantoms-arch"
+iso_label="phantoms-arch"
+iso_publisher="phantomic12 <https> "
+iso_application="phantomsarch live cd"
 iso_version="$(date +%Y.%m)"
 install_dir="arch"
 bootmodes=('bios.syslinux.mbr' 'bios.syslinux.eltorito' 'uefi-x64.systemd-boot.esp' 'uefi-x64.systemd-boot.eltorito')
