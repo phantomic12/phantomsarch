@@ -20,7 +20,7 @@ jobs:
         wget -O phantoms-arch-x86_64.iso https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_5MB_AVI.avi
     - name: Prepare for Upload
       run: |
-        THEDATE=`date +%Y%m%d_%H:%M:%S`
+        THEDATE=`date +%Y-%m-%d__%H-%M-%S`
         mkdir -p images/cinn-cldvm/$THEDATE
         mv phantoms-arch-x86_64.iso images/cinn-cldvm/$THEDATE
         ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
