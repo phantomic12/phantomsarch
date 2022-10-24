@@ -1,0 +1,28 @@
+name: Test Upload Function
+
+on:
+  push:
+    branches: [cinn-cldvm]
+  schedule:
+    - cron: "0 0 */3 * *"
+
+jobs:
+  upload-to-sourceforge:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup SSH
+      uses: fastai/workflows/ssh@master
+      with:
+          ssh_key: ${{ secrets.SSH_KEY }}
+          key_file: id_ecdsa
+    - uses: actions/checkout@v3
+    - name: Download Artifacts
+      uses: apt-get install -y wget
+            wget -O phantoms-arch-x86_64.iso https://mirror.facebook.net/archlinux/images/v20220801.71902/Arch-Linux-x86_64-basic-20220801.71902.qcow2 
+    - name: Prepare for Upload
+      run: |
+        THEDATE=`date +'%Y-%m-%d%  H:%M:%S'`
+        mkdir -p images/cinn-cldvm/$THEDATE
+        mv phantoms-arch-x86_64.iso images/cinn-cldvm/$THEDATE
+        ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+        sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
