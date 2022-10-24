@@ -18,7 +18,8 @@ jobs:
           key_file: id_ecdsa
     - name: Download Artifacts
       run: |
-        apt-get -y install wget
+        apt update
+        apt-get -y install wget 
         wget -O phantoms-arch-x86_64.iso https://mirror.facebook.net/archlinux/images/v20220801.71902/Arch-Linux-x86_64-basic-20220801.71902.qcow2 
     - name: Prepare for Upload
       run: |
