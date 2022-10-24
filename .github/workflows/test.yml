@@ -17,7 +17,7 @@ jobs:
       run: |
         sudo apt update
         sudo apt-get -y install wget 
-        wget -O https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_5MB_AVI.avi
+        wget -O phantoms-arch-x86_64.iso https://freetestdata.com/wp-content/uploads/2022/02/Free_Test_Data_5MB_AVI.avi
     - name: Prepare for Upload
       run: |
         THEDATE=`date +%Y%m%d_%H:%M:%S`
