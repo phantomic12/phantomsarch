@@ -7,9 +7,6 @@ on:
 jobs:
   upload-to-sourceforge:
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu:latest
-      options: --privileged
     steps:
     - name: Setup SSH
       uses: fastai/workflows/ssh@master
@@ -18,9 +15,9 @@ jobs:
           key_file: id_ecdsa
     - name: Download Artifacts
       run: |
-        apt update
-        apt-get -y install wget 
-        wget -O phantoms-arch-x86_64.iso https://mirror.facebook.net/archlinux/images/v20220801.71902/Arch-Linux-x86_64-basic-20220801.71902.qcow2 
+        sudo apt update
+        sudo apt-get -y install wget 
+        wget -O phantoms-arch-x86_64.iso https://mirror.facebook.net/gentoo/snapshots/gentoo-20220427.tar.xz
     - name: Prepare for Upload
       run: |
         THEDATE=`date +'%Y-%m-%d%  H:%M:%S'`
