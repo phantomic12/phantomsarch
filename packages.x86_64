@@ -129,7 +129,7 @@ gnome-backgrounds
 gnome-software
 gnome-software-packagekit-plugin
 gvfs
-mutter
+mutter-performance
 nautilus
 xdg-user-dirs-gtk
 neofetch
@@ -159,6 +159,7 @@ filezilla
 go
 heroku-cli-bin
 jdownloader2
+jellyfin-media-player
 lutris
 microsoft-edge-dev-bin
 microsoft-edge-beta-bin
