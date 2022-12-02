@@ -149,7 +149,6 @@ aria2
 base-devel
 brave-bin
 brave-nightly-bin
-bottles
 chromium
 docker
 discord-canary
@@ -160,7 +159,6 @@ filezilla
 go
 heroku-cli-bin
 jdownloader2
-jellyfin-media-player
 lutris
 microsoft-edge-dev-bin
 microsoft-edge-beta-bin
@@ -172,5 +170,4 @@ python-pip
 rclone
 steam
 ventoy-bin
-visual-studio-code-insiders-bin
 virt-manager
