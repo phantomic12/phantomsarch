@@ -104,7 +104,7 @@ xl2tpd
 zsh
 
 #Arch Linux GUI GNOME core
-xorg
+wayland
 gdm
 bash-completion
 networkmanager
