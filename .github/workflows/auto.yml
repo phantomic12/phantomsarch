@@ -1,6 +1,6 @@
 name: Automatically Build Images
 
-on:
+n:
   push:
     branches: [gnome]
   schedule:
