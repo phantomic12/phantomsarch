@@ -100,7 +100,7 @@ xl2tpd
 zsh
 
 #Arch Linux GUI Cinnamon Core
-xorg
+wayland
 lightdm
 lightdm-gtk-greeter
 xf86-input-libinput
@@ -165,14 +165,30 @@ blueman
 yay
 
 #Extras
-brave-bin
+aria2
+base-devel
+brave-beta-bin
+brave-nightly-bin
+betterdiscord-installer
 chromium
-discord_arch_electron
+docker
+discord-canary
+dnsmasq
+fish
+flatpak
+filezilla
 go
-google-chrome
+heroku-cli-bin
 jdownloader2
+lutris
+microsoft-edge-dev-bin
 microsoft-edge-beta-bin
 nodejs
 npm
+playonlinux
 python
 python-pip
+rclone
+steam
+ventoy-bin
+virt-manager
