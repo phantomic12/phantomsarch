@@ -1,6 +1,6 @@
 name: Automatically Build Images
 
-n:
+on:
   push:
     branches: [gnome]
   schedule:
@@ -9,12 +9,21 @@ n:
 jobs:
   buildimage:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch:
+          - x86_64
+        variant:         
+          - gnome
+          - cinnamon
     container:
       image: archlinux:latest
       options: --privileged
     steps:
       - uses: actions/checkout@v3
       - run: pacman -Sy
+      - run: cd iso/${{ matrix.variant }}
       - run: sh steps.sh
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3.0.0
@@ -37,7 +46,7 @@ jobs:
     - name: Prepare for Upload
       run: |
        THEDATE=`date +'%Y-%m-%d%---H-%M-%S'`
-        mkdir -p images/gnome-iso/$THEDATE
-        mv phantoms-arch-x86_64.iso images/gnome-iso/$THEDATE  
+        mkdir -p images/${{ matrix.variant }}-iso/$THEDATE
+        mv phantoms-arch-x86_64.iso images/${{ matrix.variant }}-iso/$THEDATE  
         ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-        sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ secrets.SOURCEFORGE_DIR }}"
+        sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ matrix.variant }}-iso"
