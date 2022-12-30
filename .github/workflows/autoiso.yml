@@ -17,35 +17,23 @@ jobs:
         variant:         
           - gnome
           - cinnamon
-    container:
-      image: archlinux:latest
-      options: --privileged
     steps:
       - uses: actions/checkout@v3
-      - run: pacman -Sy
-      - run: sh iso/${{ matrix.variant }}/steps.sh
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3.0.0
+      - run: tar -cvf dirs.tar airootfs/ efiboot/ syslinux/ profiledef.sh steps.sh pacman.conf packages.x86_64
+      - name: Build ISO
+        uses: phantomic12/mkarchiso-action@1.0
         with:
-          name: phantoms-arch-x86_64.iso
-          path: out/phantoms-arch-x86_64.iso
-  upload-to-sourceforge:
-    if: ${{ always() }}
-    needs: [buildimage]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Setup SSH
-      uses: fastai/workflows/ssh@master
-      with:
+          command: cd iso/${{ matrix.variant }} && sh start.sh
+      - run: 
+      - name: Setup SSH
+        uses: fastai/workflows/ssh@master
+        with:
           ssh_key: ${{ secrets.SSH_KEY }}
           key_file: id_ecdsa
-    - uses: actions/checkout@v3
-    - name: Download Artifacts
-      uses: actions/download-artifact@v3.0.0
-    - name: Prepare for Upload
-      run: |
-       THEDATE=`date +'%Y-%m-%d%---H-%M-%S'`
-        mkdir -p images/${{ matrix.variant }}-iso/$THEDATE
-        mv phantoms-arch-x86_64.iso images/${{ matrix.variant }}-iso/$THEDATE  
-        ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-        sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ matrix.variant }}-iso"
+      - name: Prepare for Upload
+        run: |
+          THEDATE=`date +'%Y-%m-%d%---H-%M-%S'`
+          mkdir -p images/${{ matrix.variant }}-iso/$THEDATE
+          mv phantoms-arch-x86_64.iso images/${{ matrix.variant }}-iso/$THEDATE  
+          ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+          sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ matrix.variant }}-iso"
