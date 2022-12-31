@@ -22,7 +22,7 @@ jobs:
       - name: Build ISO
         uses: phantomic12/mkarchiso-action@1.1
         with:
-          command: cd iso/${{ matrix.variant }} && sh steps.sh
+          command: cd iso/${{ matrix.variant }} && ./steps.sh
       - name: Setup SSH
         uses: fastai/workflows/ssh@master
         with:
