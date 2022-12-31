@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build ISO
-        uses: phantomic12/mkarchiso-action@1
+        uses: phantomic12/mkarchiso-action@1.1
         with:
           command: cd iso/${{ matrix.variant }} && sh steps.sh
       - name: Setup SSH
