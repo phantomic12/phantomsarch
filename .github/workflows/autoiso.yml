@@ -19,7 +19,6 @@ jobs:
           - cinnamon
     steps:
       - uses: actions/checkout@v3
-      - run: tar -cvf dirs.tar airootfs/ efiboot/ syslinux/ profiledef.sh steps.sh pacman.conf packages.x86_64
       - name: Build ISO
         uses: phantomic12/mkarchiso-action@1
         with:
