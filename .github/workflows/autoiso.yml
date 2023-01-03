@@ -103,7 +103,7 @@ jobs:
       - id: build-image
         shell: bash
         run: cd iso/${{ matrix.variant }} && sh steps.sh
-      - id: Setup SSH
+      - id: setup-ssh
         uses: fastai/workflows/ssh@master
         with:
           ssh_key: ${{ secrets.SSH_KEY }}
