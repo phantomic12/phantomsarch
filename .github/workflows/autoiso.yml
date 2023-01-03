@@ -97,12 +97,10 @@ jobs:
           popd
           sudo pacman-key --init
           sudo pacman-key --populate archlinux manjaro
-          for gpg_key in ${{ inputs.additional-trusted-gpg }}; do
-            sudo pacman-key --keyserver keys.openpgp.org --recv-key $gpg_key
           done
       - id: build-image
         shell: bash
-        run: cd iso/${{ matrix.variant }} && sh steps.sh
+        run: ls -R && cd iso/${{ matrix.variant }} && sh steps.sh
       - id: setup-ssh
         uses: fastai/workflows/ssh@master
         with:
