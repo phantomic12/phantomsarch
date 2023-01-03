@@ -97,7 +97,6 @@ jobs:
           popd
           sudo pacman-key --init
           sudo pacman-key --populate archlinux manjaro
-          done
       - id: build-image
         shell: bash
         run: ls -R && cd iso/${{ matrix.variant }} && sh steps.sh
