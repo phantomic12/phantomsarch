@@ -18,6 +18,8 @@ jobs:
           - gnome
           - cinnamon
     steps:
+      - id: checkout-code
+        uses: actions/checkout@main
       - id: install-build-dependencies
         shell: bash
         run: |
@@ -97,12 +99,6 @@ jobs:
           popd
           sudo pacman-key --init
           sudo pacman-key --populate archlinux manjaro
-          cd ..
-          cd ..
-          mkdir build
-          cd build
-      - id: checkout-code
-        uses: actions/checkout@main
       - id: build-image
         shell: bash
         run: ls -R && cd iso/${{ matrix.variant }} && sh steps.sh
