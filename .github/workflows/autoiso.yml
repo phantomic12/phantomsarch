@@ -97,7 +97,7 @@ jobs:
           popd
           sudo pacman-key --init
           sudo pacman-key --populate archlinux manjaro
-      - id: checkout code
+      - id: checkout-code
         uses: actions/checkout@main
       - id: build-image
         shell: bash
