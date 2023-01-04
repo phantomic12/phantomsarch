@@ -1,6 +1,5 @@
 # pacman preparations
-sudo pacman -Sy
-sudo pacman -S --noconfirm archlinux-keyring
+sudo pacman -Sy --noconfirm archlinux-keyring
 sudo pacman -S --needed --noconfirm archiso mkinitcpio-archiso
 
 # enable systemd services
