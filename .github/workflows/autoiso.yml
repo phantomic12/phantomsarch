@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: pacman -Sy
-      - run: sh iso/${{ matrix.variant }}/steps.sh
+      - run: cd iso/${{ matrix.variant }} && sh steps.sh
       - name: Setup SSH
         uses: fastai/workflows/ssh@master
         with:
