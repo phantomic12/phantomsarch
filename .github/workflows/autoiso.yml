@@ -31,8 +31,8 @@ jobs:
             key_file: id_ecdsa
       - name: Prepare for Upload
       - run: |
-        THEDATE=`date +'%Y-%m-%d%---H-%M-%S'`
-        mkdir -p images/${{ matrix.variant }}-iso/$THEDATE
-        mv phantoms-arch-x86_64.iso images/${{ matrix.variant }}-iso/$THEDATE  
-        ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-        sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ matrix.variant }}-iso"
+          THEDATE=`date +'%Y-%m-%d%---H-%M-%S'`
+          mkdir -p images/${{ matrix.variant }}-iso/$THEDATE
+          mv phantoms-arch-x86_64.iso images/${{ matrix.variant }}-iso/$THEDATE  
+          ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+          sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ matrix.variant }}-iso"
