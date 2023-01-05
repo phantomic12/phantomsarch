@@ -17,101 +17,22 @@ jobs:
         variant:         
           - gnome
           - cinnamon
+    container:
+      image: archlinux:latest
+      options: --privileged
     steps:
-      - id: checkout-code
-        uses: actions/checkout@main
-      - id: install-build-dependencies
-        shell: bash
-        run: |
-          sudo apt-get update
-          sudo apt-get install \
-            gdisk \
-            zip \
-            systemd-container \
-            bmap-tools \
-            asciidoc \
-            libarchive-tools \
-            git \
-            build-essential \
-            cmake \
-            libarchive-dev \
-            pkg-config \
-            libcurl4-openssl-dev \
-            libgpgme-dev \
-            libssl-dev \
-            fakeroot \
-            dh-autoreconf \
-            haveged \
-            os-prober \
-            kwalify \
-            dosfstools \
-            libisoburn1 \
-            squashfs-tools \
-            docbook2x \
-            mktorrent \
-            doxygen \
-            zstd
-          sudo python3 -m pip install meson
-          sudo python3 -m pip install ninja
-      - id: install-pacman
-        shell: bash
-        env:
-          PACMAN_VERSION: 6.0.2
-        run: |
-          sudo git clone --depth 1 https://gitlab.manjaro.org/packages/core/pacman.git
-          pushd pacman
-            sudo wget https://sources.archlinux.org/other/pacman/pacman-${PACMAN_VERSION}.tar.xz
-            sudo tar -xvf pacman-${PACMAN_VERSION}.tar.xz
-            pushd pacman-${PACMAN_VERSION}
-              sudo patch -p1 -i ../pacman-sync-first-option.patch
-              sudo meson --prefix=/usr \
-                        --buildtype=plain \
-                        -Ddoc=disabled \
-                        -Ddoxygen=enabled \
-                        -Dscriptlet-shell=/usr/bin/bash \
-                        -Dldconfig=/usr/bin/ldconfig \
-                        build
-              sudo meson compile -C build
-              sudo meson install -C build
-            popd
-            sudo install -m644 pacman.conf /etc/pacman.conf
-            sudo install -m644 makepkg.conf /etc/
-            sudo mkdir -p /etc/pacman.d
-            sudo touch /etc/pacman.d/mirrorlist
-          popd
-      - id: install-keyrings
-        shell: bash
-        run: |
-          sudo install -dm755 /usr/share/pacman/keyrings/
-          sudo git clone --depth 1 https://gitlab.manjaro.org/packages/core/manjaro-keyring.git
-          pushd manjaro-keyring
-            sudo install -m0644 manjaro.gpg /usr/share/pacman/keyrings/
-            sudo install -m0644 manjaro-trusted /usr/share/pacman/keyrings/
-            sudo install -m0644 manjaro-revoked /usr/share/pacman/keyrings/
-          popd
-          mkdir -p archlinux-keyring
-          pushd archlinux-keyring
-            wget https://archlinux.org/packages/core/any/archlinux-keyring/download -O /tmp/archlinux-keyring.tar.zst
-            tar --use-compress-program=unzstd --strip-components=4 --wildcards -xvf /tmp/archlinux-keyring.tar.zst usr/share/pacman/keyrings/*
-            sudo install -m0644 archlinux.gpg /usr/share/pacman/keyrings/
-            sudo install -m0644 archlinux-trusted /usr/share/pacman/keyrings/
-            sudo install -m0644 archlinux-revoked /usr/share/pacman/keyrings/
-          popd
-          sudo pacman-key --init
-          sudo pacman-key --populate archlinux manjaro
-      - id: build-image
-        shell: bash
-        run: ls -R && cd iso/${{ matrix.variant }} && sh steps.sh
-      - id: setup-ssh
+      - uses: actions/checkout@v3
+      - run: pacman -Sy
+      - run: sh iso/${{ matrix.variant }}/steps.sh
+      - name: Setup SSH
         uses: fastai/workflows/ssh@master
         with:
-          ssh_key: ${{ secrets.SSH_KEY }}
-          key_file: id_ecdsa
-      - id: upload-to-sf
-        run: |
-          THEDATE=`date +'%Y-%m-%d%---H-%M-%S'`
-          mkdir -p images/${{ matrix.variant }}-iso/$THEDATE
-          mv phantoms-arch-x86_64.iso images/${{ matrix.variant }}-iso/$THEDATE  
-          ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-          sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ matrix.variant }}-iso"
-
+            ssh_key: ${{ secrets.SSH_KEY }}
+            key_file: id_ecdsa
+             - name: Prepare for Upload
+      - run: |
+        THEDATE=`date +'%Y-%m-%d%---H-%M-%S'`
+        mkdir -p images/${{ matrix.variant }}-iso/$THEDATE
+        mv phantoms-arch-x86_64.iso images/${{ matrix.variant }}-iso/$THEDATE  
+        ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+        sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ matrix.variant }}-iso"
