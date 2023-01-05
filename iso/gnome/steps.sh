@@ -1,6 +1,6 @@
 # pacman preparations
-sudo pacman -Sy --noconfirm archlinux-keyring
-sudo pacman -S --needed --noconfirm archiso mkinitcpio-archiso
+pacman -Sy --noconfirm archlinux-keyring
+pacman -S --needed --noconfirm archiso mkinitcpio-archiso
 
 # enable systemd services
 mkdir -p airootfs/etc/systemd/system/sockets.target.wants
