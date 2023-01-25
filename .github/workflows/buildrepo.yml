@@ -19,6 +19,7 @@ jobs:
       - name: Generate Build matrix
         run: |
           # set variable
+          cd repo
           pkgs=$(cat pkglist.txt)
           echo "Packages present: $pkgs"
           # turn it into a json array
