@@ -37,19 +37,17 @@ jobs:
         pkg: ${{ fromJson(needs.genmatrix.outputs.build_matrix) }}
       fail-fast: false
     runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+      options: --privileged
     steps:
       - name: Clone PKGBUILDs
         run: git clone https://aur.archlinux.org/${{ matrix.pkg }}.git
 
       - name: Build Package
-        id: validate-binary
-        uses: 2m/arch-pkgbuild-builder@v1.16
-        with:
-          target: 'run'
-          pkgname: '${{ matrix.pkg }}'
-          command: 'mkdir phn-repo && mv *.zst phn-repo'
+        run: cd ${{ matrix.pkg }} && makepkg --syncdeps --noconfirm --install && mkdir phn-repo && mv *.zst phn-repo
 
       - name: Upload Built Artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: built-pkgs
+          path: phn-repo
