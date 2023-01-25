@@ -46,7 +46,7 @@ jobs:
           pkgname: 'ucm-bin'
           command: 'mkdir phn-repo && mv *.zst phn-repo'
 
-        - name: Upload Built Artifacts
-        - uses: actions/upload-artifact@v3
-          with:
-            path: built-pkgs
+      - name: Upload Built Artifacts
+      - uses: actions/upload-artifact@v3
+        with:
+          path: built-pkgs
