@@ -38,7 +38,7 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-latest
     container:
-      image: archlinux:latest
+      image: phantomic/makepkgarch:latest
       options: --privileged
     steps:
       - name: Clone PKGBUILDs
