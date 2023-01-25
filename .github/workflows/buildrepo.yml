@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone PKGBUILDs
-        run: git clone htps://aur.archlinux.org/${{ matrix.pkg }}.git
+        run: git clone https://aur.archlinux.org/${{ matrix.pkg }}.git
 
       - name: Build Package
         id: validate-binary
