@@ -1,7 +1,7 @@
 name: Build Repo
 on:
-  workflow_dispatch:
-  workflow_call:
+  push:
+    branches: [gnome]
 
 jobs:
   genmatrix:
@@ -39,7 +39,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: phantomic/makepkgarch:latest
-      options: --privileged
     steps:
       - name: Clone PKGBUILDs
         run: git clone https://aur.archlinux.org/${{ matrix.pkg }}.git
