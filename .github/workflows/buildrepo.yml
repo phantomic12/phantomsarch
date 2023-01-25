@@ -20,9 +20,14 @@ jobs:
           cd repo
           pkgs=$(cat pkglist.txt)
           echo "Packages present: $pkgs"
+          if [ -z "$pkgs" ]; then
+          echo "::set-output name=is_empty::true"
+          else
+          echo "::set-output name=is_empty::false"
+          fi
           # turn it into a json array
           build_matrix=$(echo "$pkgs" | jq -R . | jq -s . | jq -c .)
-          # create build matrix with { changed_folders: [ "folder1", "folder2" ] }
+          # create build matrix with { pkgs: [ "pkg1", "pkg2" ] }
           echo "::set-output name=build_matrix::$build_matrix"
   build:
     needs: genmatrix
