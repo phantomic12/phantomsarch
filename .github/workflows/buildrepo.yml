@@ -9,8 +9,6 @@ jobs:
 
     outputs:
       build_matrix: ${{ steps.generate_build_matrix.outputs.build_matrix }}
-      is_empty: ${{ steps.generate_build_matrix.outputs.is_empty }}
-
     # check out the repo
     steps:
       - name: Checkout
@@ -31,7 +29,6 @@ jobs:
     strategy:
       matrix:
         pkg: ${{ fromJson(needs.manifest.outputs.build_matrix) }}
-      fail-fast: false
     runs-on: ubuntu-latest
     steps:
       - name: Clone PKGBUILDs
