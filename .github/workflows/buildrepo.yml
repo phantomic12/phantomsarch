@@ -17,8 +17,6 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Generate Build matrix
-        id: generate_build_matrix
-        # generate build matrix by checking out changes in ultramarine/
         run: |
           # set variable
           pkgs=$(cat pkglist.txt)
@@ -47,6 +45,6 @@ jobs:
           command: 'mkdir phn-repo && mv *.zst phn-repo'
 
       - name: Upload Built Artifacts
-      - uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           path: built-pkgs
