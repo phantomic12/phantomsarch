@@ -29,7 +29,6 @@ heroku-cli-bin
 microsoft-edge-stable-bin
 python2-bin
 yay-bin
-brave-bin
 gnome-shell-extension-espresso
 gnome-shell-extension-gsconnect
 gnome-shell-extension-dash-to-dock

@@ -35,6 +35,7 @@ jobs:
     strategy:
       matrix:
         pkg: ${{ fromJson(needs.genmatrix.outputs.build_matrix) }}
+      fail-fast: false
     runs-on: ubuntu-latest
     steps:
       - name: Clone PKGBUILDs
