@@ -1,0 +1,52 @@
+name: Build Repo
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  genmatrix:
+    runs-on: ubuntu-latest
+
+    outputs:
+      build_matrix: ${{ steps.generate_build_matrix.outputs.build_matrix }}
+      is_empty: ${{ steps.generate_build_matrix.outputs.is_empty }}
+
+    # check out the repo
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Generate Build matrix
+        id: generate_build_matrix
+        # generate build matrix by checking out changes in ultramarine/
+        run: |
+          # set variable
+          pkgs=$(cat pkglist.txt)
+          echo "Packages present: $pkgs"
+          # turn it into a json array
+          build_matrix=$(echo "$pkgs" | jq -R . | jq -s . | jq -c .)
+          # create build matrix with { changed_folders: [ "folder1", "folder2" ] }
+          echo "::set-output name=build_matrix::$build_matrix"
+  build:
+    needs: genmatrix
+    strategy:
+      matrix:
+        pkg: ${{ fromJson(needs.manifest.outputs.build_matrix) }}
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone PKGBUILDs
+        run: git clone htps://aur.archlinux.org/${{ matrix.pkg }}.git
+
+      - name: Build Package
+        id: validate-binary
+        uses: 2m/arch-pkgbuild-builder@v1.16
+        with:
+          target: 'run'
+          pkgname: 'ucm-bin'
+          command: 'mkdir phn-repo && mv *.zst phn-repo'
+
+        - name: Upload Built Artifacts
+        - uses: actions/upload-artifact@v3
+          with:
+            path: built-pkgs
