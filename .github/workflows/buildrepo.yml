@@ -33,7 +33,7 @@ jobs:
     needs: genmatrix
     strategy:
       matrix:
-        pkg: ${{ fromJson(needs.manifest.outputs.build_matrix) }}
+        pkg: ${{ fromJson(needs.genmatrix.outputs.build_matrix) }}
     runs-on: ubuntu-latest
     steps:
       - name: Clone PKGBUILDs
@@ -44,7 +44,7 @@ jobs:
         uses: 2m/arch-pkgbuild-builder@v1.16
         with:
           target: 'run'
-          pkgname: 'ucm-bin'
+          pkgname: '${{ matrix.pkg }}'
           command: 'mkdir phn-repo && mv *.zst phn-repo'
 
       - name: Upload Built Artifacts
