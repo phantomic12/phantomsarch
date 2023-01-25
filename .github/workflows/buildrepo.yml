@@ -40,6 +40,9 @@ jobs:
     container:
       image: phantomic/makepkgarch:latest
     steps:
+      - name: Try and fix write permissions
+        run: sudo chown -R build /home/build
+
       - name: Clone PKGBUILDs
         run: git clone https://aur.archlinux.org/${{ matrix.pkg }}.git
 
