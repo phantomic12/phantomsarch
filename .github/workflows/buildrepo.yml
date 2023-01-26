@@ -1,12 +1,10 @@
-name: Build Repo
+name: CI notify
 
 on:
-  push:
-    branches:
-      [gnome]
-    paths-ignore:
-      - "iso/**"
-      # - ".github/**"
+  workflow_run:
+    workflows: ["Update PKGBUILDs"]
+    types:
+      - completed
 
 jobs:
   genmatrix:
