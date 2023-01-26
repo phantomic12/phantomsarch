@@ -44,8 +44,8 @@ jobs:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
       - name: Install Deps
-        run: sudo pacman -Sy archlinux-keyring git
-        
+        run: sudo pacman -Sy archlinux-keyring git --noconfirm
+
       - name: Clone PKGBUILDs
         run: git clone https://aur.archlinux.org/${{ matrix.pkg }}.git
       
