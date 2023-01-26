@@ -38,16 +38,19 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-latest
     container:
-      image: phantomic/makepkgarch:latest
+      image: archlinux:base-devel
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
-      - name: Try and fix write permissions
-        run: sudo chown -R build /home/build
-
       - name: Clone PKGBUILDs
         run: git clone https://aur.archlinux.org/${{ matrix.pkg }}.git
-
-      - name: Build Package
-        run: cd ${{ matrix.pkg }} && makepkg --syncdeps --noconfirm --install && mkdir phn-repo && mv *.zst phn-repo
+      
+      - name: Build Arch Linux package
+        uses: FFY00/build-arch-package@v1
+        with:
+          PKGBUILD: $HOME/${{ matrix.pkg }}
+          OUTDIR: $HOME/phn-repo
 
       - name: Upload Built Artifacts
         uses: actions/upload-artifact@v3
