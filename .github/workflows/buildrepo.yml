@@ -47,7 +47,7 @@ jobs:
         run: sudo pacman -Sy archlinux-keyring git --noconfirm
 
       - name: Clone PKGBUILDs
-        run: git clone https://aur.archlinux.org/${{ matrix.pkg }}.git
+        run: git clone https://aur.archlinux.org/${{ matrix.pkg }}.git && pwd
       
       - name: Build Arch Linux package
         uses: FFY00/build-arch-package@v1
