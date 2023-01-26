@@ -43,7 +43,7 @@ jobs:
       volumes:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
-      - name: Install Deps
+      - name: Preparations
         run: sudo pacman -Sy archlinux-keyring git --noconfirm
 
       - name: Clone PKGBUILDs
@@ -52,10 +52,10 @@ jobs:
       - name: Build Arch Linux package
         uses: FFY00/build-arch-package@v1
         with:
-          PKGBUILD: $HOME/${{ matrix.pkg }}
-          OUTDIR: $HOME/phn-repo
+          PKGBUILD: ${{ matrix.pkg }}
+          OUTDIR: repo
 
       - name: Upload Built Artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: phn-repo
+          path: repo
