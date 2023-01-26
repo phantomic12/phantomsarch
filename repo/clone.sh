@@ -1,4 +1,4 @@
-cd PKGBUILDS && rm -rf *
+mkdir PKGBUILDS && cd PKGBUILDS && rm -rf *
 git clone https://aur.archlinux.org/brave-nightly-bin.git
 git clone https://aur.archlinux.org/microsoft-edge-dev-bin.git
 git clone https://aur.archlinux.org/discord-canary.git
@@ -69,7 +69,3 @@ git clone https://aur.archlinux.org/vscodium-bin.git
 git clone https://aur.archlinux.org/jdownloader2.git
 git clone https://aur.archlinux.org/betterdiscord-installer.git
 git clone https://aur.archlinux.org/prismlauncher-bin.git
-git clone https://github.com/phantomic12/alg-pkgbuild.git 
-cd ..
-mv PKGBUILDS/alg-pkgbuild/* PKGBUILDS
-rm -rf PKGBUILDS/alg-pkgbuild

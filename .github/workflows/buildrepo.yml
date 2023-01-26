@@ -1,5 +1,4 @@
-name: CI notify
-
+name: Build Repo
 on:
   workflow_run:
     workflows: ["Update PKGBUILDs"]
@@ -58,9 +57,8 @@ jobs:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
       - name: Build Arch Linux package
-        uses: taotieren/build-arch-package@master
+        uses: FFY00/build-arch-package@master
         with:
-          BUILDING: multilib-build
           PKGBUILD: $GITHUB_WORKSPACE/repo/PKGBUILDS/${{ matrix.pkg }}/PKGBUILD
           OUTDIR: $HOME/repo
 
