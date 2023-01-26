@@ -1,7 +1,10 @@
 name: Build Repo
+
 on:
   push:
-    branches: [gnome]
+    paths-ignore:
+      - "iso/**"
+      # - ".github/**"
 
 jobs:
   genmatrix:
@@ -9,27 +12,38 @@ jobs:
 
     outputs:
       build_matrix: ${{ steps.generate_build_matrix.outputs.build_matrix }}
+      is_empty: ${{ steps.generate_build_matrix.outputs.is_empty }}
+
     # check out the repo
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 4
+      - run: git fetch
+      #- run: git checkout HEAD^
 
       - name: Generate Build matrix
         id: generate_build_matrix
+        # generate build matrix by checking out changes in PKGBUILDS/
         run: |
-          # set variable
-          cd repo
-          pkgs=$(cat pkglist.txt)
-          echo "Packages present: $pkgs"
-          if [ -z "$pkgs" ]; then
-          echo "::set-output name=is_empty::true"
+          # get the list of changed folders in the current commit
+          cd repo && changed_folders=$(git diff --name-only HEAD^ | grep -oP 'PKGBUILDS\/(.+)\/' | sort -u )
+          echo "Changed folders: $changed_folders"
+          # if changed_folders is empty then set is empty to true
+          if [ -z "$changed_folders" ]; then
+            echo "::set-output name=is_empty::true"
           else
-          echo "::set-output name=is_empty::false"
+            echo "::set-output name=is_empty::false"
           fi
           # turn it into a json array
-          build_matrix=$(echo "$pkgs" | jq -R . | jq -s . | jq -c .)
-          # create build matrix with { pkgs: [ "pkg1", "pkg2" ] }
+          #build_matrix=$(echo "$changed_folders" | jq -R . | jq -s . | jq -c .)
+          # if there's only one folder then check if it's
+          build_matrix=$(find PKGBUILDS/ | grep -oP 'PKGBUILDS\/(.+)\/' | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          # create build matrix with { changed_folders: [ "folder1", "folder2" ] }
           echo "::set-output name=build_matrix::$build_matrix"
+          #echo "::set-output name=build_matrix::$build_matrix"
+
   build:
     needs: genmatrix
     strategy:
@@ -38,24 +52,22 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-latest
     container:
-      image: archlinux:base-devel
+      image: archlinux
       options: --privileged
       volumes:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
-      - name: Preparations
-        run: sudo pacman -Sy archlinux-keyring git --noconfirm
-
-      - name: Clone PKGBUILDs
-        run: git clone https://aur.archlinux.org/${{ matrix.pkg }}.git && pwd
-      
       - name: Build Arch Linux package
-        uses: FFY00/build-arch-package@v1
+        uses: taotieren/build-arch-package@master
         with:
-          PKGBUILD: ${{ matrix.pkg }}
-          OUTDIR: repo
+          BUILDING: multilib-build
+          PKGBUILD: $GITHUB_WORKSPACE/repo/PKGBUILDS/${{ matrix.pkg }}
+          OUTDIR: $HOME/repo
+
 
       - name: Upload Built Artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: repo
+          path: $HOME/repo
+
+          ${{ matrix.pkg }}

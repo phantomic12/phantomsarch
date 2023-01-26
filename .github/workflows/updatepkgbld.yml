@@ -1,0 +1,18 @@
+name: Build Repo
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  fetchsrc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Fetch PKGBUILDS
+        run: sh clone.sh
+
+      - name: Commit Changed Files
+        uses: stefanzweifel/git-auto-commit-action@v4

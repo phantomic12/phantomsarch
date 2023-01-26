@@ -113,7 +113,6 @@ virtualbox-guest-utils
 
 #Arch Linux GUI Cinnamon
 cinnamon
-alg-cinnamon-settings
 
 #ALG Cinnamon Applications
 gnome-terminal
@@ -129,12 +128,10 @@ pulseaudio-bluetooth
 #Installer
 grub
 calamares
-alg-theme-cala-config
 os-prober
 
 #browser
 firefox
-alg-firefox-settings
 
 #media player
 vlc
