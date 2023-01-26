@@ -61,7 +61,7 @@ jobs:
         uses: taotieren/build-arch-package@master
         with:
           BUILDING: multilib-build
-          PKGBUILD: $GITHUB_WORKSPACE/repo/PKGBUILDS/${{ matrix.pkg }}
+          PKGBUILD: $GITHUB_WORKSPACE/repo/PKGBUILDS/${{ matrix.pkg }}/PKGBUILD
           OUTDIR: $HOME/repo
 
 
