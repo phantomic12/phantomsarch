@@ -2,6 +2,8 @@ name: Build Repo
 
 on:
   push:
+    branches:
+      [gnome]
     paths-ignore:
       - "iso/**"
       # - ".github/**"
