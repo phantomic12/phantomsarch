@@ -1,0 +1,21 @@
+# Maintainer: DemonKiller
+pkgname=alg-firefox-settings
+destname="/etc"
+pkgver=22.06
+pkgrel=1
+pkgdesc="ALG Settings for Firefox, providing browser-wide dark theme"
+arch=('x86_64')
+url="https://github.com/arch-linux-gui"
+license=('GPL3')
+makedepends=('git')
+depends=('firefox')
+conflicts=()
+provides=("${pkgname}")
+options=(!strip !emptydirs)
+source=(${pkgname}::"git+${url}/${pkgname}")
+sha256sums=('SKIP')
+
+package() {
+	install -dm755 ${pkgdir}${destname}
+	cp -r ${srcdir}/${pkgname}${destname}/* ${pkgdir}${destname}
+}
