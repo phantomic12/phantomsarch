@@ -60,7 +60,7 @@ jobs:
       - name: Build Arch Linux package
         uses: FFY00/build-arch-package@v1
         with:
-          PKGBUILD: $GITHUB_WORKSPACE/repo/${{ matrix.pkg }}/PKGBUILD
+          PKGBUILD: $GITHUB_WORKSPACE/${{ matrix.pkg }}/PKGBUILD
           OUTDIR: $HOME/phn-repo
 
 
