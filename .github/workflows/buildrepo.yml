@@ -56,17 +56,17 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build Arch Linux package
-        uses: soloturn/build-aur-action@master
+        uses: phantomic12/build-aur-action@master
         with:
           repo-name: ${{ matrix.pkg }}
 
       - name: Move files
-        run: mkdir $HOME/phn-repo & mv $GITHUB_WORKSPACE/repo/${{ matrix.pkg }}*.tar.zst $HOME/phn-repo
+        run: cd .. && mkdir phn-repo && mv ${{ matrix.pkg }}*.tar.zst phn-repo
 
       - name: Upload Built Artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: $HOME/phn-repo
+          path: /phn-repo
   
   upload:
     needs: build
@@ -79,6 +79,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: phn-repo
+          
       - name: Install Prerequisites
         run: sudo pacman -Sy openssh --noconfirm
       
