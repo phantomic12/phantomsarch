@@ -1,9 +1,10 @@
 name: Build Repo
 on:
-  workflow_run:
-    workflows: ["Update PKGBUILDs"]
-    types:
-      - completed
+  push:
+    paths-ignore:      
+          - "iso/**"
+          - ".github/**"
+  workflow_dispatch:
 
 jobs:
   genmatrix:
