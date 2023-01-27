@@ -28,7 +28,7 @@ jobs:
         # generate build matrix by checking out changes in repo/
         run: |
           # get the list of changed folders in the current commit
-         changed_folders=$(git diff --name-only HEAD^ | grep -oP 'repo\/(.+)\/' | sort -u )
+          changed_folders=$(git diff --name-only HEAD^ | grep -oP 'repo\/(.+)\/' | sort -u )
           echo "Changed folders: $changed_folders"
           # if changed_folders is empty then set is empty to true
           if [ -z "$changed_folders" ]; then
