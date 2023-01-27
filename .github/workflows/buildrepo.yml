@@ -61,7 +61,7 @@ jobs:
           repo-name: ${{ matrix.pkg }}
 
       - name: Move files
-        run: mkdir $HOME/phn-repo & mv $GITHUB_WORKSPACE/repo/${{ matrix.pkg }}/*.tar.zst $HOME/phn-repo
+        run: mkdir $HOME/phn-repo & mv $GITHUB_WORKSPACE/repo/${{ matrix.pkg }}*.tar.zst $HOME/phn-repo
 
       - name: Upload Built Artifacts
         uses: actions/upload-artifact@v3
