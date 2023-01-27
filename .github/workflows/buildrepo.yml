@@ -59,8 +59,8 @@ jobs:
         with:
           repo-name: ${{ matrix.pkg }}
       - name: Move files
-        run: mv *.tar.zst $HOME/phn-repo
-      - name: Upload Built Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          path: $HOME/phn-repo
+        run: ls -R
+ #     - name: Upload Built Artifacts
+ #       uses: actions/upload-artifact@v3
+ #       with:
+ #         path: $HOME/phn-repo
