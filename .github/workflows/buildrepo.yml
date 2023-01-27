@@ -1,4 +1,4 @@
-name: Build Repo
+name: Update Repo
 on:
   push:
     paths-ignore:      
@@ -25,10 +25,10 @@ jobs:
 
       - name: Generate Build matrix
         id: generate_build_matrix
-        # generate build matrix by checking out changes in PKGBUILDS/
+        # generate build matrix by checking out changes in repo/
         run: |
           # get the list of changed folders in the current commit
-          cd repo && changed_folders=$(git diff --name-only HEAD^ | grep -oP 'PKGBUILDS\/(.+)\/' | sort -u )
+         changed_folders=$(git diff --name-only HEAD^ | grep -oP 'repo\/(.+)\/' | sort -u )
           echo "Changed folders: $changed_folders"
           # if changed_folders is empty then set is empty to true
           if [ -z "$changed_folders" ]; then
@@ -39,7 +39,7 @@ jobs:
           # turn it into a json array
           #build_matrix=$(echo "$changed_folders" | jq -R . | jq -s . | jq -c .)
           # if there's only one folder then check if it's
-          build_matrix=$(find PKGBUILDS/ | grep -oP 'PKGBUILDS\/(.+)\/' | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          build_matrix=$(find repo/ | grep -oP 'repo\/(.+)\/' | sort -u | jq -R -s -c 'split("\n")[:-1]')
           # create build matrix with { changed_folders: [ "folder1", "folder2" ] }
           echo "::set-output name=build_matrix::$build_matrix"
           #echo "::set-output name=build_matrix::$build_matrix"
@@ -60,11 +60,11 @@ jobs:
       - name: Build Arch Linux package
         uses: FFY00/build-arch-package@v1
         with:
-          PKGBUILD: $GITHUB_WORKSPACE/repo/PKGBUILDS/${{ matrix.pkg }}/PKGBUILD
-          OUTDIR: $HOME/repo
+          PKGBUILD: $GITHUB_WORKSPACE/repo/${{ matrix.pkg }}/PKGBUILD
+          OUTDIR: $HOME/phn-repo
 
 
       - name: Upload Built Artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: $HOME/repo
+          path: $HOME/phn-repo
