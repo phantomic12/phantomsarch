@@ -69,3 +69,5 @@ wget https://aur.archlinux.org/cgit/aur.git/snapshot/vscodium-bin.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/jdownloader2.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/betterdiscord-installer.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/prismlauncher-bin.tar.gz
+tar -xvf *.tar.gz
+rm -rf *.tar.gz
