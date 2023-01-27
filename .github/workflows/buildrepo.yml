@@ -51,21 +51,15 @@ jobs:
         pkg: ${{ fromJson(needs.genmatrix.outputs.build_matrix) }}
       fail-fast: false
     runs-on: ubuntu-latest
-    container:
-      image: archlinux
-      options: --privileged
-      volumes:
-        - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
       - name: Build Arch Linux package
-        uses: FFY00/build-arch-package@v1
+        uses: soloturn/build-aur-action@master
         with:
-          PKGBUILD: $GITHUB_WORKSPACE/${{ matrix.pkg }}/PKGBUILD
-          OUTDIR: $HOME/phn-repo
-
-
+          repo-name: ${{ matrix.pkg }}
+      - name: Move files
+        run: mv *.tar.zst $HOME/phn-repo
       - name: Upload Built Artifacts
         uses: actions/upload-artifact@v3
         with:

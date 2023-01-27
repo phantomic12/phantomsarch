@@ -1,7 +1,0 @@
-heroku-*.tgz
-src/
-pkg
-cli-source
-*.pkg.tar*
-*linux*.tar.xz
-heroku-cli*v*-*.tar.xz
