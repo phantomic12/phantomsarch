@@ -1,4 +1,4 @@
-mkdir PKGBUILDS && cd PKGBUILDS && rm -rf *
+cd repo && remove *
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/brave-nightly-bin.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/microsoft-edge-dev-bin.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/discord-canary.tar.gz
