@@ -61,40 +61,40 @@ jobs:
           repo-name: "${{ matrix.pkg }}"
 
       - name: Move files
-        run: cd ${{ matrix.pkg }} && mkdir phn-repo && mv *.tar.zst phn-repo
+        run: cd ${{ matrix.pkg }} && mkdir phn-repo && mv *.tar.zst phn-repo && lsblk
 
-    #  - name: Upload Built Artifacts
-     #   uses: actions/upload-artifact@v3
-     #   with:
-     #     path: /phn-repo
+      - name: Upload Built Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: /phn-repo
   
- # upload:
-  #  needs: build
-  #  runs-on: ubuntu-latest
-  #  container:
-    #  image: archlinux:base-devel
-  #    options: --privileged
-  #  steps:
-   #   - name: Download Artifacts
-   #     uses: actions/download-artifact@v3
-    #    with:
-     #     path: phn-repo
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base-devel
+      options: --privileged
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: phn-repo
 
-    #  - name: Install Prerequisites
-    #    run: sudo pacman -Sy openssh --noconfirm
+      - name: Install Prerequisites
+        run: sudo pacman -Sy openssh --noconfirm
       
 
-   #   - name: Setup SSH
-    #    uses: fastai/workflows/ssh@master
-  #      with:
-       #     ssh_key: ${{ secrets.SSH_KEY }}
-         #   key_file: id_ecdsa
+      - name: Setup SSH
+        uses: fastai/workflows/ssh@master
+        with:
+            ssh_key: ${{ secrets.SSH_KEY }}
+            key_file: id_ecdsa
       
- #     - name: Repo add everything
- #       run: cd phn-repo && repo-add 'phn-repo.db.tar.gz' *.tar.zst && cd ..
+      - name: Repo add everything
+        run: cd phn-repo && repo-add 'phn-repo.db.tar.gz' *.tar.zst && cd ..
 
-#      - name: Upload it all
-#        run: |
-#          ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-#          sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh / "${{ secrets.USERNAME }}@frs.sourceforge.net:$/home/pfs/project/phn-repo/new"
+      - name: Upload it all
+        run: |
+          ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+          sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh / "${{ secrets.USERNAME }}@frs.sourceforge.net:$/home/pfs/project/phn-repo/new"
       
