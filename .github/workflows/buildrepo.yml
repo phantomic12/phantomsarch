@@ -56,12 +56,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build Arch Linux package
-        uses: phantomic12/build-aur-action@master
+        uses: soloturn/build-aur-action@master
         with:
           repo-name: ${{ matrix.pkg }}
 
       - name: Move files
-        run: cd .. && pwd && ls -R
+        run: cd ${{ matrix.pkg }} && mkdir phn-repo && mv *.tar.zst
 
     #  - name: Upload Built Artifacts
      #   uses: actions/upload-artifact@v3
