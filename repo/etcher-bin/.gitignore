@@ -1,7 +1,0 @@
-/[Ee]tcher-*
-/src/
-/pkg/
-etcher-bin-*.pkg.tar.xz
-balena-etcher_*.deb
-pkg/
-src/
