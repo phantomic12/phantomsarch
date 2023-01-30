@@ -71,3 +71,4 @@ wget https://aur.archlinux.org/cgit/aur.git/snapshot/betterdiscord-installer.tar
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/prismlauncher-bin.tar.gz
 ls *.tar.gz |xargs -n1 tar -xzf
 rm -rf *.tar.gz
+find . -name "*.gitignore" -type f -delete
