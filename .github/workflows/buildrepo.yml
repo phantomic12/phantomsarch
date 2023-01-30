@@ -58,7 +58,7 @@ jobs:
       - name: Build Arch Linux package
         uses: soloturn/build-aur-action@master
         with:
-          repo-name: ${{ matrix.pkg }}
+          repo-name: "${{ matrix.pkg }}"
 
       - name: Move files
         run: cd ${{ matrix.pkg }} && mkdir phn-repo && mv *.tar.zst
