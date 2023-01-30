@@ -61,7 +61,7 @@ jobs:
           repo-name: "${{ matrix.pkg }}"
 
       - name: Move files
-        run: cd ${{ matrix.pkg }} && mkdir phn-repo && mv *.tar.zst
+        run: cd ${{ matrix.pkg }} && mkdir phn-repo && mv *.tar.zst phn-repo
 
     #  - name: Upload Built Artifacts
      #   uses: actions/upload-artifact@v3
