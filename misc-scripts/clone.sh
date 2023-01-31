@@ -73,6 +73,9 @@ wget https://aur.archlinux.org/cgit/aur.git/snapshot/ttf-ms-fonts.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/tela-circle-icon-theme.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/qogir-gtk-theme-git.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/mcmojave-cursors.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/ckbcomp.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/mkinitcpio-openswap.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/alpm_octopi_utils.tar.gz
 
 ls *.tar.gz |xargs -n1 tar -xzf
 rm -rf *.tar.gz
