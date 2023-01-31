@@ -1,0 +1,5 @@
+ brave-nightly-bin
+ microsoft-edge-dev-bin
+ discord-canary
+ 
+ 
