@@ -55,46 +55,62 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Build Arch Linux package
-        uses: phantomic12/build-aur-action@master
+      - name: Build  
+        uses: JPratama7/pkgbuild-action@master
         with:
-          repo-name: "${{ matrix.pkg }}"
+          pkgdir: ${{ matrix.pkg }}
+          makepkgArgs: "--skipinteg"
 
-      - name: Move files
-        run: cd ${{ matrix.pkg }} && mkdir phn-repo && mv *.tar.zst phn-repo && lsblk
 
-      - name: Upload Built Artifacts
-        uses: actions/upload-artifact@v3
+      - name: Upload Packages
+        uses: ncipollo/release-action@v1.10.0
         with:
-          path: /phn-repo
+          allowUpdates: true
+          replacesArtifacts: true
+          tag: "repo"
+          artifacts: "*/*.zst"
+          token: ${{ secrets.PAT }}
   
   upload:
+    if: ${{ always() }}
     needs: build
     runs-on: ubuntu-latest
     container:
       image: archlinux:base-devel
       options: --privileged
     steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: phn-repo
+      - name: Create Repo DB
+        run: |
+          pacman -Syu --needed aria2 base-devel --noconfirm
+          urls=$(curl https://github.com/phantomic12/phantomsarch/releases/expanded_assets/repo -s|grep "/JPratama7/arch-builder/releases/download/latest/"|awk -F '"|"' '{print$2}')
 
-      - name: Install Prerequisites
-        run: sudo pacman -Sy openssh --noconfirm
+          for i in ${urls[*]}; do 
+              pkg=$(echo $i|awk -F '/' '{print$7}')
+              echo Downloading $pkg
+              aria2c -x 16 -s 16 https://github.com/$i
+          done
       
 
-      - name: Setup SSH
-        uses: fastai/workflows/ssh@master
-        with:
-            ssh_key: ${{ secrets.SSH_KEY }}
-            key_file: id_ecdsa
+     # - name: Setup SSH
+     #   uses: fastai/workflows/ssh@master
+     #   with:
+     #       ssh_key: ${{ secrets.SSH_KEY }}
+     #       key_file: id_ecdsa
       
       - name: Repo add everything
         run: cd phn-repo && repo-add 'phn-repo.db.tar.gz' *.tar.zst && cd ..
-
-      - name: Upload it all
-        run: |
-          ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-          sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh / "${{ secrets.USERNAME }}@frs.sourceforge.net:$/home/pfs/project/phn-repo/new"
+        
+      - name: Upload Packages
+        uses: ncipollo/release-action@v1.10.0
+        with:
+          allowUpdates: true
+          replacesArtifacts: true
+          tag: "repo"
+          artifacts: "./phn-repo.*"
+          token: ${{ secrets.PAT }}
+     # - name: Upload it all
+     #   run: |
+     #     ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+     #     sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh / "${{ secrets.USERNAME }}@frs.sourceforge.net:$/home/pfs/project/phn-repo/new"
       
+      # --skipinteg

@@ -58,7 +58,6 @@
  vmware-unlocker-bin
  microsoft-edge-beta-bin
  armcord-bin
- octopi
  jellyfin-media-player
  gdlauncher-bin
  tlauncher-org
