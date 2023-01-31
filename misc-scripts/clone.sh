@@ -76,6 +76,11 @@ wget https://aur.archlinux.org/cgit/aur.git/snapshot/mcmojave-cursors.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/ckbcomp.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/mkinitcpio-openswap.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/alpm_octopi_utils.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/clion.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/clion-lldb.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/clion-jre.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/clion-gdb.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/clion-cmake.tar.gz
 
 ls *.tar.gz |xargs -n1 tar -xzf
 rm -rf *.tar.gz
