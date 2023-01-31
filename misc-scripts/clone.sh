@@ -69,6 +69,11 @@ wget https://aur.archlinux.org/cgit/aur.git/snapshot/vscodium-bin.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/jdownloader2.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/betterdiscord-installer.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/prismlauncher-bin.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/ttf-ms-fonts.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/tela-circle-icon-theme.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/qogir-gtk-theme-git.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/mcmojave-cursors.tar.gz
+
 ls *.tar.gz |xargs -n1 tar -xzf
 rm -rf *.tar.gz
 find . -name "*.gitignore" -type f -delete

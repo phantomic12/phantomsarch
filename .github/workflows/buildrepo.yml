@@ -98,7 +98,7 @@ jobs:
      #       key_file: id_ecdsa
       
       - name: Repo add everything
-        run: cd phn-repo && repo-add 'phn-repo.db.tar.gz' *.tar.zst && cd ..
+        run: repo-add 'phn-repo.db.tar.gz' *.tar.zst
         
       - name: Upload Packages
         uses: ncipollo/release-action@v1.10.0
