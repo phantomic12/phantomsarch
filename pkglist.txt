@@ -67,3 +67,6 @@
  jdownloader2
  betterdiscord-installer
  prismlauncher-bin
+ calamares
+ alg-theme-cala-config
+ alg-firefox-settings
