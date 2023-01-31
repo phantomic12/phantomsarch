@@ -140,15 +140,15 @@ vlc
 libreoffice-fresh
 
 #fonts
-#ttf-ms-fonts
+ttf-ms-fonts
 ttf-roboto
 noto-fonts
 noto-fonts-cjk
 
 #themes
-#tela-circle-icon-theme-all
-#qogir-gtk-theme-git
-#mcmojave-cursors
+tela-circle-icon-theme-all
+qogir-gtk-theme-git
+mcmojave-cursors
 
 #printing
 cups
