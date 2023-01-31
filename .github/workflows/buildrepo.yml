@@ -28,7 +28,7 @@ jobs:
         # generate build matrix by checking out changes in repo/
         run: |
           # get the list of changed folders in the current commit
-          changed_folders=$(git diff --name-only HEAD^ | grep -oP 'repo\/(.+)\/' | sort -u )
+          changed_folders=$(cat pkglist.txt)
           echo "Changed folders: $changed_folders"
           # if changed_folders is empty then set is empty to true
           if [ -z "$changed_folders" ]; then
@@ -82,7 +82,7 @@ jobs:
       - name: Create Repo DB
         run: |
           pacman -Syu --needed aria2 base-devel --noconfirm
-          urls=$(curl https://github.com/phantomic12/phantomsarch/releases/expanded_assets/repo -s|grep "/JPratama7/arch-builder/releases/download/latest/"|awk -F '"|"' '{print$2}')
+          urls=$(curl https://github.com/phantomic12/phantomsarch/releases/expanded_assets/repo -s|grep "/phantomic12/phantomsarch/releases/download/repo/"|awk -F '"|"' '{print$2}')
 
           for i in ${urls[*]}; do 
               pkg=$(echo $i|awk -F '/' '{print$7}')
