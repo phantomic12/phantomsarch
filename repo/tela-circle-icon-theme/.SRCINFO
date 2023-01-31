@@ -1,0 +1,48 @@
+pkgbase = tela-circle-icon-theme
+	pkgdesc = A flat colorful design icon theme
+	pkgver = 2023.01.29
+	pkgrel = 1
+	url = https://github.com/vinceliuice/Tela-circle-icon-theme
+	arch = any
+	license = GPL3
+	makedepends = bash
+	depends = gtk-update-icon-cache
+	depends = hicolor-icon-theme
+	provides = tela-circle-icon-theme
+	options = !strip
+	source = tela-circle-icon-theme-2023.01.29.tar.gz::https://github.com/vinceliuice/tela-circle-icon-theme/archive/2023-01-29.tar.gz
+	b2sums = 20cb565805081f1631ced08df96095643b24ad3dbe985d314102f9d29af19d01e40c5f351f454eaac27980df2f041767d1e3f48d8a746f5c63c901f2c3cb5dc7
+
+pkgname = tela-circle-icon-theme-all
+	pkgdesc = A flat colorful design icon theme (all variants)
+	conflicts = 
+
+pkgname = tela-circle-icon-theme-standard
+
+pkgname = tela-circle-icon-theme-black
+
+pkgname = tela-circle-icon-theme-blue
+
+pkgname = tela-circle-icon-theme-brown
+
+pkgname = tela-circle-icon-theme-green
+
+pkgname = tela-circle-icon-theme-grey
+
+pkgname = tela-circle-icon-theme-orange
+
+pkgname = tela-circle-icon-theme-pink
+
+pkgname = tela-circle-icon-theme-purple
+
+pkgname = tela-circle-icon-theme-red
+
+pkgname = tela-circle-icon-theme-yellow
+
+pkgname = tela-circle-icon-theme-manjaro
+
+pkgname = tela-circle-icon-theme-ubuntu
+
+pkgname = tela-circle-icon-theme-dracula
+
+pkgname = tela-circle-icon-theme-nord
