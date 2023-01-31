@@ -38,8 +38,6 @@ gptfdisk
 grml-zsh-config
 hdparm
 intel-ucode
-ipw2100-fw
-ipw2200-fw
 irssi
 iwd
 jfsutils
@@ -157,7 +155,6 @@ fish
 flatpak
 filezilla
 go
-heroku-cli-bin
 jdownloader2
 lutris
 microsoft-edge-dev-bin
