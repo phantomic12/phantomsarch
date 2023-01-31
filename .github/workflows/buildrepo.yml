@@ -68,7 +68,7 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           tag: "repo"
-          artifacts: "*/*.zst"
+          artifacts: "repo/*/*.zst"
           token: ${{ secrets.PAT }}
   
   upload:
