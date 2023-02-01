@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: pacman -Sy
-      - run: cd iso/${{ matrix.variant }} && sh steps.sh
+      - run: cd iso/${{ matrix.variant }} && sh steps.sh && pwd && ls -R
       - name: upload
         uses: actions/upload-artifact@v3
         with:
