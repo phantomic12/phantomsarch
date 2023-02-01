@@ -24,11 +24,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: pacman -Sy
-      - run: cd iso/${{ matrix.variant }} && mkdir out && cd out && touch phantomsarch-2023.02-x86_64.iso && pwd && ls -R
+      - run: cd iso/${{ matrix.variant }} && mkdir out && cd out && touch phantomsarch-2023.02-x86_64.iso && pwd && ls -R 
       - name: upload
         uses: actions/upload-artifact@v3
         with:
-          path: $GITHUB_WORKSPACE
+          name: phantomsarch-${{ matrix.variant }}.iso
+          path: out/*.iso
       - name: Setup SSH
         uses: fastai/workflows/ssh@master
         with:

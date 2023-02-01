@@ -29,7 +29,8 @@ jobs:
       - name: upload
         uses: actions/upload-artifact@v3
         with:
-          path: $GITHUB_WORKSPACE
+          name: phantomsarch-${{ matrix.variant }}.iso
+          path: out/*.iso
      # - name: Setup SSH
      #   uses: fastai/workflows/ssh@master
      #   with:
