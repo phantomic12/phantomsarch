@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: pacman -Sy
-      - run: cd iso/${{ matrix.variant }} && mkdir -p out && touch /out/phantomsarch-2023.02-x86_64.iso
+      - run: cd iso/${{ matrix.variant }} && mkdir out && cd out && touch /phantomsarch-2023.02-x86_64.iso
       - name: Setup SSH
         uses: fastai/workflows/ssh@master
         with:
