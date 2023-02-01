@@ -28,7 +28,7 @@ jobs:
       - name: upload
         uses: actions/upload-artifact@v3
         with:
-          path: $GITHUB_WORKSPACE/phantoms
+          path: $GITHUB_WORKSPACE
       - name: Setup SSH
         uses: fastai/workflows/ssh@master
         with:
