@@ -1,0 +1,22 @@
+env:
+    # Cirrus Specific Vars (Do *NOT* Change)
+    CIRRUS_SHELL: bash
+    
+task:
+  name: "Build ISO"
+  timeout_in: 120m
+  container:
+      image: archlinux/archlinux:latest
+      cpu: 8
+      memory: 20G
+      
+  Build:
+      - pacman -Sy wget git --noconfirm
+      - pacman-key --init
+      - git clone https://github.com/phantomic12/phantomsarch.git
+      - cd iso/gnome
+      - sh steps.sh
+  Upload:
+      - export TIMEOUT=43200
+      - curl -sL $OUTFILE https://git.io/file-transfer | sh
+      - ./transfer wet out/*
