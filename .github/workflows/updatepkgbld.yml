@@ -20,4 +20,3 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Sync PKGBUILDS
-          commit_user_name: phantomic12_automated
