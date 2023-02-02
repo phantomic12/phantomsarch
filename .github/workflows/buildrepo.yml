@@ -91,11 +91,11 @@ jobs:
           done
       
 
-     # - name: Setup SSH
-     #   uses: fastai/workflows/ssh@master
-     #   with:
-     #       ssh_key: ${{ secrets.SSH_KEY }}
-     #       key_file: id_ecdsa
+       - name: Setup SSH
+         uses: fastai/workflows/ssh@master
+         with:
+            ssh_key: ${{ secrets.SSH_KEY }}
+            key_file: id_ecdsa
       
       - name: Repo add everything
         run: repo-add 'phn-repo.db.tar.gz' *.tar.zst
