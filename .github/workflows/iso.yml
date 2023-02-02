@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: phantomsarch-${{ matrix.variant }}.iso
-          path: out/*.iso
+          path: /phantomsarch-x86_64.iso
      # - name: Setup SSH
      #   uses: fastai/workflows/ssh@master
      #   with:
