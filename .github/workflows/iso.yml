@@ -35,7 +35,7 @@ jobs:
         with:
             ssh_key: ${{ secrets.SSH_KEY }}
             key_file: id_ecdsa
-       - run: |
+      - run: |
           mkdir -p images/${{ matrix.variant }}-iso/$THEDATE
           mv iso/${{ matrix.variant }}/out/phantoms-arch-*-x86_64.iso images/${{ matrix.variant }}-iso/$THEDATE  
           ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
