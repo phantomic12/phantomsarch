@@ -81,7 +81,7 @@ jobs:
     steps:
       - name: Create Repo DB
         run: |
-          pacman -Syu --needed aria2 base-devel --noconfirm
+          pacman -Syu --needed aria2 openssh base-devel --noconfirm
           urls=$(curl https://github.com/phantomic12/phantomsarch/releases/expanded_assets/repo -s|grep "/phantomic12/phantomsarch/releases/download/repo/"|awk -F '"|"' '{print$2}')
 
           for i in ${urls[*]}; do 
