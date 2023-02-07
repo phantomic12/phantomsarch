@@ -25,10 +25,11 @@ jobs:
 
       - name: Generate Build matrix
         id: generate_build_matrix
+        # $(git diff --name-only HEAD^ | grep -oP 'repo\/(.+)\/' | sort -u )
         # generate build matrix by checking out changes in repo/
         run: |
           # get the list of changed folders in the current commit
-          changed_folders=$(git diff --name-only HEAD^ | grep -oP 'ultramarine\/(.+)\/' | sort -u )
+          changed_folders=$(ls repo)
           echo "Changed folders: $changed_folders"
           # if changed_folders is empty then set is empty to true
           if [ -z "$changed_folders" ]; then
@@ -70,6 +71,12 @@ jobs:
           tag: "repo"
           artifacts: "repo/*/*.zst"
           token: ${{ secrets.PAT }}
+      
+      
+      - name: Temporarily upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: repo/*/
   
   upload:
     if: ${{ always() }}
@@ -79,9 +86,9 @@ jobs:
       image: archlinux:base-devel
       options: --privileged
     steps:
-      - name: Create Repo DB
+      - name: Download Everything
         run: |
-          pacman -Syu --needed aria2 openssh base-devel --noconfirm
+          pacman -Syu --needed aria2 openssh sshpass base-devel --noconfirm
           urls=$(curl https://github.com/phantomic12/phantomsarch/releases/expanded_assets/repo -s|grep "/phantomic12/phantomsarch/releases/download/repo/"|awk -F '"|"' '{print$2}')
 
           for i in ${urls[*]}; do 
