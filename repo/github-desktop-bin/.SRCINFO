@@ -1,0 +1,24 @@
+pkgbase = github-desktop-bin
+	pkgdesc = GUI for managing Git and GitHub.
+	pkgver = 3.1.5_linux2
+	pkgrel = 1
+	url = https://desktop.github.com
+	arch = x86_64
+	license = MIT
+	depends = curl
+	depends = git
+	depends = libsecret
+	depends = libxss
+	depends = nspr
+	depends = nss
+	depends = org.freedesktop.secrets
+	depends = unzip
+	optdepends = hub: CLI interface for GitHub.
+	provides = github-desktop
+	conflicts = github-desktop
+	source = https://github.com/shiftkey/desktop/releases/download/release-3.1.5-linux2/GitHubDesktop-linux-3.1.5-linux2.deb
+	source = github-desktop.desktop
+	sha256sums = 6d616ac8040a8e6e8357a136c852681f98a1c351cba5664996c9fa76238431fe
+	sha256sums = 932e4c456e8c6db03d27172cf0daa37806bf025bb560d8b3d758c0997d1a618c
+
+pkgname = github-desktop-bin
