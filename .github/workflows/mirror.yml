@@ -17,6 +17,13 @@ jobs:
               aria2c -x 16 -s 16 https://github.com/$i
           done
 
+      - name: rename everything
+        run: |
+          find . -name '*:*' -type f -print0 | perl -0ne '
+          rename $_, s{[^/]+$}{$& =~ y/:/-/r}res or warn "rename $_: $!"'
+          done
+
+
       - name: Setup SSH
         uses: fastai/workflows/ssh@master
         with:
@@ -27,4 +34,4 @@ jobs:
         run: |
           mkdir repo && mv *.zst repo
           ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-          sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh repo "${{ secrets.USERNAME }}@frs.sourceforge.net:$/home/pfs/project/phn-repo/new"          
+          sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh repo "${{ secrets.USERNAME }}@frs.sourceforge.net:$/home/pfs/project/phn-repo"          
