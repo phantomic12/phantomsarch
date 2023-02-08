@@ -84,6 +84,7 @@ wget https://aur.archlinux.org/cgit/aur.git/snapshot/clion-cmake.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/github-desktop-bin.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/vscodium-bin-marketplace.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/distrobox.tar.gz
+wget https://aur.archlinux.org/cgit/aur.git/snapshot/termius.tar.gz
 
 ls *.tar.gz |xargs -n1 tar -xzf
 rm -rf *.tar.gz

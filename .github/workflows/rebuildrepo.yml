@@ -58,7 +58,6 @@ jobs:
           pkgdir: ${{ matrix.pkg }}
           makepkgArgs: "--skipinteg"
 
-      - name: Organize
 
 
       - name: Upload Packages
