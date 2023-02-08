@@ -1,9 +1,5 @@
-name: Update Repo
+name: Rebuild Repo
 on:
-  push:
-    paths-ignore:      
-          - "iso/**"
-          - ".github/**"
   workflow_dispatch:
 
 jobs:
@@ -29,7 +25,7 @@ jobs:
         # generate build matrix by checking out changes in repo/
         run: |
           # get the list of changed folders in the current commit
-          changed_folders=$(git diff --name-only HEAD^ | grep -oP 'repo\/(.+)\/' | sort -u )
+          changed_folders=$(ls repo)
           echo "Changed folders: $changed_folders"
           # if changed_folders is empty then set is empty to true
           if [ -z "$changed_folders" ]; then
@@ -62,6 +58,7 @@ jobs:
           pkgdir: ${{ matrix.pkg }}
           makepkgArgs: "--skipinteg"
 
+      - name: Organize
 
 
       - name: Upload Packages
