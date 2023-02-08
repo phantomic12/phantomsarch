@@ -1,4 +1,4 @@
-name: Automatically Build Images
+name: Mirror Repo to SF
 
 on:
   workflow_dispatch:
@@ -25,6 +25,6 @@ jobs:
 
       - name: Mirror to SF
         run: |
-          mkdir repo && mv * repo
+          mkdir repo && mv *.zst repo
           ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
           sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh repo "${{ secrets.USERNAME }}@frs.sourceforge.net:$/home/pfs/project/phn-repo/new"          
