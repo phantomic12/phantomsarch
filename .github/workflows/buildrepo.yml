@@ -4,6 +4,7 @@ on:
     paths-ignore:      
           - "iso/**"
           - ".github/**"
+          - "misc-scripts/**"
   workflow_dispatch:
 
 jobs:
@@ -62,6 +63,8 @@ jobs:
           pkgdir: ${{ matrix.pkg }}
           makepkgArgs: "--skipinteg"
 
+      - name: cleanup junk
+        run: rm -v !("*.tar.zst")
 
 
       - name: Upload Packages
