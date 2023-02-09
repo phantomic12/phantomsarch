@@ -5,7 +5,6 @@ iso_name="phantoms-arch"
 iso_label="phantoms-arch"
 iso_publisher="phantomic12 <https> "
 iso_application="phantomsarch live cd"
-iso_version="${{ matrix.variant }}"
 install_dir="arch"
 bootmodes=('bios.syslinux.mbr' 'bios.syslinux.eltorito' 'uefi-x64.systemd-boot.esp' 'uefi-x64.systemd-boot.eltorito')
 arch="x86_64"

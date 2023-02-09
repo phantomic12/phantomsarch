@@ -63,9 +63,6 @@ jobs:
           pkgdir: ${{ matrix.pkg }}
           makepkgArgs: "--skipinteg"
 
-      - name: cleanup junk
-        run: rm -v !("*.tar.zst")
-
 
       - name: Upload Packages
         uses: ncipollo/release-action@v1.10.0
@@ -77,10 +74,6 @@ jobs:
           token: ${{ secrets.PAT }}
       
       
-      - name: Temporarily upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          path: repo/*/
   
   upload:
     if: ${{ always() }}
