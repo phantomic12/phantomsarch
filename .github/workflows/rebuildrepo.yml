@@ -102,8 +102,8 @@ jobs:
             key_file: id_ecdsa
       
       - name: Repo add everything and touch
-        run: repo-add 'phn-repo.db.tar.gz' *.tar.zst
-        run: touch ~/.ssh/known_hosts
+        run: repo-add 'phn-repo.db.tar.gz' *.tar.zst && touch ~/.ssh/known_hosts
+         
         
       - name: Upload Packages
         uses: ncipollo/release-action@v1.10.0
