@@ -103,7 +103,6 @@ jobs:
       
       - name: Repo add everything and touch
         run: repo-add 'phn-repo.db.tar.gz' *.tar.zst
-        run: touch ~/.ssh/known_hosts
         
       - name: Upload Packages
         uses: ncipollo/release-action@v1.10.0
@@ -113,6 +112,7 @@ jobs:
           tag: "repo"
           artifacts: "./phn-repo.*"
           token: ${{ secrets.PAT }}
+          
       - name: Mirror to SF
         run: |
           ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
