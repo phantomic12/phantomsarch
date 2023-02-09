@@ -42,6 +42,14 @@ jobs:
           # create build matrix with { changed_folders: [ "folder1", "folder2" ] }
           echo "::set-output name=build_matrix::$build_matrix"
           #echo "::set-output name=build_matrix::$build_matrix"
+          
+      - name: Clean up packages
+        uses: mknejp/delete-release-assets@v1
+        with:
+          token: ${{ secrets.PAT }}
+          tag: repo
+          assets: '*.zst, phn-repo.*'
+      
 
   build:
     needs: genmatrix
@@ -54,19 +62,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Delete old release assets
-        uses: mknejp/delete-release-assets@v1
-        with:
-          token: ${{ secrets.PAT }}
-          tag: repo
-          assets: '*.zst'
-
       - name: Build  
         uses: phantomic12/pkgbuild-action@master
         with:
           pkgdir: ${{ matrix.pkg }}
           makepkgArgs: "--skipinteg"
-
 
 
       - name: Upload Packages
