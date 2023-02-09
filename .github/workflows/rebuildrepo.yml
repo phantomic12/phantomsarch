@@ -48,7 +48,14 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           tag: repo
-          assets: '*.zst, phn-repo.*'
+          assets: '*.zst'
+      
+      - name: Clean up packages
+        uses: mknejp/delete-release-assets@v1
+        with:
+          token: ${{ secrets.PAT }}
+          tag: repo
+          assets: 'phn-repo.*'
       
 
   build:
