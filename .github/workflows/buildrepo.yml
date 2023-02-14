@@ -39,12 +39,9 @@ jobs:
             echo "::set-output name=is_empty::false"
           fi
           # turn it into a json array
-          #build_matrix=$(echo "$changed_folders" | jq -R . | jq -s . | jq -c .)
-          # if there's only one folder then check if it's
-          build_matrix=$(find repo/ | grep -oP 'repo\/(.+)\/' | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          build_matrix=$(echo "$changed_folders" | jq -R . | jq -s . | jq -c .)
           # create build matrix with { changed_folders: [ "folder1", "folder2" ] }
           echo "::set-output name=build_matrix::$build_matrix"
-          #echo "::set-output name=build_matrix::$build_matrix"
 
   build:
     needs: genmatrix
