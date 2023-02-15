@@ -7,7 +7,7 @@ low effort arch spinoff exclusively for convenience
 add this to your pacman.conf
 ```
 [phn-repo]
-SigLevel = TrustAll
+SigLevel = Never
 Server = https://github.com/phantomic12/phantomsarch/releases/download/repo/
 ```
 
