@@ -59,7 +59,8 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           tag: repo # This may also be of the form 'refs/tags/staging'
-          assets: '${{ matrix.pkg }}-*.tar.zst'
+          assets: |
+            ${{ matrix.pkg }}-*
 
       - name: Build  
         uses: phantomic12/pkgbuild-action@master
