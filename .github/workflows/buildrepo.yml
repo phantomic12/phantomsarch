@@ -50,6 +50,8 @@ jobs:
         pkg: ${{ fromJson(needs.genmatrix.outputs.build_matrix) }}
       fail-fast: false
     runs-on: ubuntu-latest
+    env:
+      package: $(sh misc-scripts/del.sh ${{ matrix.pkg }})
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -59,7 +61,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           tag: repo # This may also be of the form 'refs/tags/staging'
-          assets: $(sh misc-scripts/del.sh ${{ matrix.pkg }})
+          assets: $package
 
       - name: Build  
         uses: phantomic12/pkgbuild-action@master
