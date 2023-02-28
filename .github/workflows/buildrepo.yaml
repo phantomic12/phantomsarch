@@ -51,7 +51,7 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-latest
     env:
-      package: $(sh misc-scripts/del.sh ${{ matrix.pkg }})
+      package: $({ sh misc-scripts/del.sh ${{ matrix.pkg }} })
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
