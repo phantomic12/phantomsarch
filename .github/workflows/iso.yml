@@ -22,21 +22,41 @@ jobs:
       image: archlinux:latest
       options: --privileged
     steps:
+
       - uses: actions/checkout@v3
-      - run: pacman -Sy
-      - run: cd iso/${{ matrix.variant }} && sh steps.sh && pwd && ls -R
-      - name: upload
+
+      - run: pacman -Sy --noconfirm --needed zip unzip
+
+      - run: sh misc-scripts/iso.sh ${{ matrix.variant }}
+
+      - name: Upload ISO to GHA
         uses: actions/upload-artifact@v3
         with:
           name: phantomsarch-${{ matrix.variant }}.iso
           path: ${{ matrix.variant }}.iso
+      
+      
+
       - name: Setup SSH
         uses: fastai/workflows/ssh@master
         with:
             ssh_key: ${{ secrets.SSH_KEY }}
             key_file: id_ecdsa
       - run: |
-          mkdir -p images/${{ matrix.variant }}-iso/$THEDATE
-          mv iso/${{ matrix.variant }}/out/phantoms-arch-*-x86_64.iso images/${{ matrix.variant }}-iso/$THEDATE  
+          mkdir -p images/${{ matrix.variant }}-iso
+          mv ${{ matrix.variant }}.iso images/${{ matrix.variant }}-iso 
           ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
           sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ matrix.variant }}-iso"
+
+      
+      - name: Archive ISO
+        run: zip -r -s 2000m phantomsarch-${{ matrix.variant }}.zip images/${{ matrix.variant }}-iso
+
+      - name: Upload Artifacts to GH Release
+        uses: ncipollo/release-action@v1.10.0
+        with:
+          allowUpdates: true
+          replacesArtifacts: true
+          tag: "repo"
+          artifacts: "images/*.z*"
+          token: ${{ secrets.PAT }}

@@ -1,7 +1,5 @@
 name: Rebuild Repo
 on:
-  schedule:
-    - cron: "0 0 * * 5-6"
   workflow_dispatch:
 
 jobs:
@@ -62,7 +60,6 @@ jobs:
         with:
           pkgdir: ${{ matrix.pkg }}
           makepkgArgs: "--skipinteg"
-
 
 
       - name: Upload Packages

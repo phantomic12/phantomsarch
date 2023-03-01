@@ -119,11 +119,5 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           tag: "repo"
-          artifacts: "./phn-repo.*"
+          artifacts: "./*"
           token: ${{ secrets.PAT }}
-          
-      - name: Mirror to SF
-        run: |
-          ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-          sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh *.tar.zst "${{ secrets.USERNAME }}@frs.sourceforge.net:$/home/pfs/project/phn-repo/new"
-          rsync -arsP -e ssh ./phn-repo.* "${{ secrets.USERNAME }}@frs.sourceforge.net:$/home/pfs/project/phn-repo/new"
