@@ -74,7 +74,7 @@ jobs:
 
 
       - name: Upload Packages
-        uses: ncipollo/release-action@v1.10.0
+        uses: ncipollo/release-action@v1.12.0
         with:
           allowUpdates: true
           replacesArtifacts: true
@@ -114,7 +114,7 @@ jobs:
         run: repo-add 'phn-repo.db.tar.gz' *.tar.zst
         
       - name: Upload Packages
-        uses: ncipollo/release-action@v1.10.0
+        uses: ncipollo/release-action@v1.12.0
         with:
           allowUpdates: true
           replacesArtifacts: true
