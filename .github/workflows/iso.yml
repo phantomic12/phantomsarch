@@ -53,7 +53,7 @@ jobs:
         run: zip -r -s 2000m phantomsarch-${{ matrix.variant }}.zip images/${{ matrix.variant }}-iso
 
       - name: Upload Artifacts to GH Release
-        uses: ncipollo/release-action@v1.10.0
+        uses: ncipollo/release-action@v1.12.0
         with:
           allowUpdates: true
           replacesArtifacts: true
