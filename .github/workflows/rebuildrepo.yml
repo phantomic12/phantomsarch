@@ -1,6 +1,5 @@
 name: Rebuild Repo
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   genmatrix:
