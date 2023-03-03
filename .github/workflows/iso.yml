@@ -22,12 +22,14 @@ jobs:
       image: archlinux:latest
       options: --privileged
     steps:
+      - name: Retrieve Sources
+        uses: actions/checkout@v3
 
-      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: pacman -Sy --noconfirm --needed zip unzip
 
-      - run: pacman -Sy --noconfirm --needed zip unzip
-
-      - run: sh misc-scripts/iso.sh ${{ matrix.variant }}
+      - name: Build ISOs
+        run: sh misc-scripts/iso.sh ${{ matrix.variant }}
 
       - name: Upload ISO to GHA
         uses: actions/upload-artifact@v3
