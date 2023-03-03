@@ -40,13 +40,6 @@ jobs:
           echo "::set-output name=build_matrix::$build_matrix"
           #echo "::set-output name=build_matrix::$build_matrix"
         
-      - name: Delete old release assets
-        uses: mknejp/delete-release-assets@v1
-        with:
-          token: ${{ secrets.PAT }}
-          tag: repo # This may also be of the form 'refs/tags/staging'
-          assets: |
-           '*.tar.zst'
           
 
       
