@@ -1,4 +1,5 @@
 cd repo && remove *
+
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/brave-nightly-bin.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/microsoft-edge-dev-bin.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/discord-canary.tar.gz
@@ -73,7 +74,6 @@ wget https://aur.archlinux.org/cgit/aur.git/snapshot/ttf-ms-fonts.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/tela-circle-icon-theme.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/qogir-gtk-theme-git.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/mcmojave-cursors.tar.gz
-wget https://aur.archlinux.org/cgit/aur.git/snapshot/ckbcomp.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/mkinitcpio-openswap.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/alpm_octopi_utils.tar.gz
 wget https://aur.archlinux.org/cgit/aur.git/snapshot/clion.tar.gz

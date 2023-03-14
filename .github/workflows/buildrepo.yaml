@@ -14,6 +14,8 @@ jobs:
     outputs:
       build_matrix: ${{ steps.generate_build_matrix.outputs.build_matrix }}
       is_empty: ${{ steps.generate_build_matrix.outputs.is_empty }}
+      build_matrix_fails: ${{ steps.generate_build_matrix.outputs.build_matrix_fails }}
+      is_empty_fails: ${{ steps.generate_build_matrix.outputs.is_empty_fails }}
 
     # check out the repo
     steps:
@@ -24,24 +26,40 @@ jobs:
       - run: git fetch
       #- run: git checkout HEAD^
 
-      - name: Generate Build matrix
+      - name: Generate Build matrices
         id: generate_build_matrix
         # $(git diff --name-only HEAD^ | grep -oP 'repo\/(.+)\/' | sort -u )
         # generate build matrix by checking out changes in repo/
         run: |
           # get the list of changed folders in the current commit
           changed_folders=$(git diff --name-only HEAD^ | grep -oP 'repo\/(.+)\/' | sort -u )
+          failed=$(cat fails/preretry/*.txt)
+          #
+          #
           echo "Changed folders: $changed_folders"
+          echo "Failed builds: $failed"
+          #
+          #
           # if changed_folders is empty then set is empty to true
           if [ -z "$changed_folders" ]; then
             echo "::set-output name=is_empty::true"
           else
             echo "::set-output name=is_empty::false"
           fi
+          ##################
+          if [ -z "$failed" ]; then
+            echo "::set-output name=is_empty_fails::true"
+          else
+            echo "::set-output name=is_empty_fails::false"
+          fi
           # turn it into a json array
           build_matrix=$(echo "$changed_folders" | jq -R . | jq -s . | jq -c .)
+          build_matrix_fails=$(echo "$failed" | jq -R . | jq -s . | jq -c .)
+          #
+          #
           # create build matrix with { changed_folders: [ "folder1", "folder2" ] }
           echo "::set-output name=build_matrix::$build_matrix"
+          echo "::set-output name=build_matrix_fails::$build_matrix_fails"
 
   build:
     needs: genmatrix
@@ -58,20 +76,24 @@ jobs:
 
       - name: Set env vars
         run: echo "package=$(sh misc-scripts/del.sh ${{ matrix.pkg }})" >> $GITHUB_ENV
-      
-      - name: Delete old release assets
-        uses: mknejp/delete-release-assets@v1
-        with:
-          token: ${{ secrets.PAT }}
-          tag: repo # This may also be of the form 'refs/tags/staging'
-          assets: ${{ env.package }}
 
       - name: Build  
         uses: phantomic12/pkgbuild-action@master
         with:
           pkgdir: ${{ matrix.pkg }}
           makepkgArgs: "--skipinteg"
-
+      
+      - name: Commit Failed Logs
+        if: ${{ failure() }}
+        run: |
+          echo ${{ env.package }} >> fails/preretry/${{ env.package }
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add -A
+          git checkout gnome
+          git diff-index --quiet HEAD || git commit -am "log failed package builds"
+          git pull origin gnome --rebase=true # to avoid conflicts due to data races
+          git push
 
       - name: Upload Packages
         uses: ncipollo/release-action@v1.12.0
@@ -81,6 +103,70 @@ jobs:
           tag: "repo"
           artifacts: "repo/*/*.zst"
           token: ${{ secrets.PAT }}
+      - name: Delete fail logs
+        run: |
+          find fails/preretry -name ${{ matrix.fail }} -exec rm -i {} \;
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add -A
+          git checkout gnome
+          git diff-index --quiet HEAD || git commit -am "Delete failed package"
+          git pull origin gnome --rebase=true # to avoid conflicts due to data races
+          git push
+          
+  build_failed:
+    needs: genmatrix
+    strategy:
+      matrix:
+       fail: ${{ fromJson(needs.genmatrix.outputs.build_matrix_fails) }}
+      fail-fast: false
+    runs-on: ubuntu-latest
+    env:
+      package: $(sh misc-scripts/del.sh ${{ matrix.fail }})
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set env vars
+        run: echo "package=$(sh misc-scripts/del.sh ${{ matrix.fail }})" >> $GITHUB_ENV
+
+      - name: Build  
+        uses: phantomic12/pkgbuild-action@master
+        with:
+          pkgdir: ${{ matrix.fail }}
+          makepkgArgs: "--skipinteg"
+      
+      - name: Commit Failed Logs
+        if: ${{ failure() }}
+        run: |
+          echo ${{ matrix.fail }} >> fails/preretry/${{ matrix.fail }
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add -A
+          git checkout gnome
+          git diff-index --quiet HEAD || git commit -am "log failed package builds"
+          git pull origin gnome --rebase=true # to avoid conflicts due to data races
+          git push
+
+      - name: Upload Packages
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          allowUpdates: true
+          replacesArtifacts: true
+          tag: "repo"
+          artifacts: "repo/*/*.zst"
+          token: ${{ secrets.PAT }}
+      
+      - name: Delete fail logs
+        run: |
+          find fails/preretry -name ${{ matrix.fail }} -exec rm -i {} \;
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add -A
+          git checkout gnome
+          git diff-index --quiet HEAD || git commit -am "Delete failed package"
+          git pull origin gnome --rebase=true # to avoid conflicts due to data races
+          git push
       
       
   

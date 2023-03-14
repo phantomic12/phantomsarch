@@ -9,6 +9,7 @@ jobs:
       build_matrix: ${{ steps.generate_build_matrix.outputs.build_matrix }}
       is_empty: ${{ steps.generate_build_matrix.outputs.is_empty }}
 
+
     # check out the repo
     steps:
       - name: Checkout
@@ -18,7 +19,7 @@ jobs:
       - run: git fetch
       #- run: git checkout HEAD^
 
-      - name: Generate Build matrix
+      - name: Generate Build matrices
         id: generate_build_matrix
         # $(git diff --name-only HEAD^ | grep -oP 'repo\/(.+)\/' | sort -u )
         # generate build matrix by checking out changes in repo/
@@ -26,14 +27,15 @@ jobs:
           # get the list of changed folders in the current commit
           changed_folders=$(ls repo)
           echo "Changed folders: $changed_folders"
+          #################################################
           # if changed_folders is empty then set is empty to true
           if [ -z "$changed_folders" ]; then
             echo "::set-output name=is_empty::true"
           else
             echo "::set-output name=is_empty::false"
           fi
-          # turn it into a json array
-          #build_matrix=$(echo "$changed_folders" | jq -R . | jq -s . | jq -c .)
+
+          # Create Fail Matrix
           # if there's only one folder then check if it's
           build_matrix=$(find repo/ | grep -oP 'repo\/(.+)\/' | sort -u | jq -R -s -c 'split("\n")[:-1]')
           # create build matrix with { changed_folders: [ "folder1", "folder2" ] }
@@ -61,6 +63,18 @@ jobs:
           pkgdir: ${{ matrix.pkg }}
           makepkgArgs: "--skipinteg"
 
+      - name: Commit Failed Logs
+        if: ${{ failure() }}
+        run: |
+          echo ${{ matrix.pkg }} >> fails/preretry/${{ matrix.pkg }.txt
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add -A
+          git checkout gnome
+          git diff-index --quiet HEAD || git commit -am "log failed package builds"
+          git pull origin gnome --rebase=true # to avoid conflicts due to data races
+          git push
+
 
       - name: Upload Packages
         uses: ncipollo/release-action@v1.12.0
@@ -72,7 +86,8 @@ jobs:
           token: ${{ secrets.PAT }}
       
     
-  
+ 
+      
   upload:
     if: ${{ always() }}
     needs: build
@@ -99,8 +114,8 @@ jobs:
             ssh_key: ${{ secrets.SSH_KEY }}
             key_file: id_ecdsa
       
-      - name: Repo add everything and touch
-        run: repo-add 'phn-repo.db.tar.gz' *.tar.zst && touch ~/.ssh/known_hosts
+      - name: Repo add everything
+        run: repo-add 'phn-repo.db.tar.gz' *.tar.zst
          
         
       - name: Upload Packages
@@ -112,8 +127,8 @@ jobs:
           artifacts: "./phn-repo.*"
           token: ${{ secrets.PAT }}
           
-      - name: Mirror to SF
-        run: |
+#      - name: Mirror to SF
+#        run: |
           # ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
           # sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh *.tar.zst "${{ secrets.USERNAME }}@frs.sourceforge.net:$/home/pfs/project/phn-repo/new"
           # rsync -arsP -e ssh ./phn-repo.* "${{ secrets.USERNAME }}@frs.sourceforge.net:$/home/pfs/project/phn-repo/new"
