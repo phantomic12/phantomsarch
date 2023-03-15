@@ -53,10 +53,15 @@ jobs:
         pkg: ${{ fromJson(needs.genmatrix.outputs.build_matrix) }}
       fail-fast: false
     runs-on: ubuntu-latest
+    env:
+      package: $(sh misc-scripts/del.sh ${{ matrix.pkg }})
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-
+        
+      - name: Set env vars
+        run: echo "package=$(sh misc-scripts/del.sh ${{ matrix.pkg }})" >> $GITHUB_ENV
+        
       - name: Build  
         uses: phantomic12/pkgbuild-action@master
         with:
@@ -66,7 +71,8 @@ jobs:
       - name: Commit Failed Logs
         if: ${{ failure() }}
         run: |
-          echo ${{ matrix.pkg }} >> fails/preretry/${{ matrix.pkg }}
+          mkdir -p fails/preretry
+          echo ${{ env.package }} >> fails/preretry/${{ env.package }}
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
           git add -A
