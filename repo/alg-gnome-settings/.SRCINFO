@@ -1,0 +1,23 @@
+pkgbase = alg-gnome-settings
+	pkgdesc = Settings for Arch Linux GUI GNOME Edition
+	pkgver = 21.07
+	pkgrel = 1
+	url = https://github.com/arch-linux-gui
+	arch = x86_64
+	license = GPL3
+	makedepends = git
+	depends = gnome-terminal
+	depends = vlc
+	depends = firefox
+	depends = tela-circle-icon
+	optdepends = paru: an AUR helper
+	optdepends = neofetch: screenfetch utility
+	optdepends = cups: printing support
+	optdepends = system-config-printer: CUPS status applet
+	provides = alg-gnome-settings
+	options = !strip
+	options = !emptydirs
+	source = alg-gnome-settings::git+https://github.com/arch-linux-gui/alg-gnome-settings
+	sha256sums = SKIP
+
+pkgname = alg-gnome-settings
