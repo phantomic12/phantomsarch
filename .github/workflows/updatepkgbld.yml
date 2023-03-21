@@ -17,6 +17,9 @@ jobs:
         run: sh misc-scripts/clone.sh
 
       - name: Commit Changed Files
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Sync PKGBUILDS
+        run: |       
+          git add -A
+          git checkout gnome
+          git diff-index --quiet HEAD || git commit -am "update pkgbuilds"
+          git pull origin gnome --rebase=true # to avoid conflicts due to data races
+          git push
