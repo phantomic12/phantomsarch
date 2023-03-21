@@ -1,0 +1,26 @@
+pkgbase = alg-xfce-settings
+	pkgdesc = Settings for Arch Linux GUI XFCE Edition
+	pkgver = 22.03
+	pkgrel = 1
+	url = https://github.com/arch-linux-gui
+	arch = x86_64
+	license = GPL3
+	makedepends = git
+	depends = xfce4-terminal
+	depends = thunar
+	depends = firefox
+	depends = xfce4-whiskermenu-plugin
+	depends = tela-circle-icon
+	depends = qogir-gtk-theme-git
+	optdepends = paru: an AUR helper
+	optdepends = neofetch: screenfetch utility
+	optdepends = cups: printing support
+	optdepends = system-config-printer: CUPS status applet
+	optdepends = blueman: bluetooth manager
+	provides = alg-xfce-settings
+	options = !strip
+	options = !emptydirs
+	source = alg-xfce-settings::git+https://github.com/arch-linux-gui/alg-xfce-settings
+	sha256sums = SKIP
+
+pkgname = alg-xfce-settings
