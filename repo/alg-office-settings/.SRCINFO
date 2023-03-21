@@ -1,0 +1,17 @@
+pkgbase = alg-office-settings
+	pkgdesc = ALG Settings for LibreOffice, providing visible icons in dark theme, and MS-font support
+	pkgver = 21.07
+	pkgrel = 1
+	url = https://github.com/arch-linux-gui
+	arch = x86_64
+	license = GPL3
+	makedepends = git
+	depends = libreoffice-fresh
+	depends = ttf-ms-fonts
+	provides = alg-office-settings
+	options = !strip
+	options = !emptydirs
+	source = alg-office-settings::git+https://github.com/arch-linux-gui/alg-office-settings
+	sha256sums = SKIP
+
+pkgname = alg-office-settings
