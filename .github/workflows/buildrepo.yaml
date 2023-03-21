@@ -139,5 +139,5 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           tag: "repo"
-          artifacts: "./*"
+          artifacts: "./phn-repo*"
           token: ${{ secrets.PAT }}
