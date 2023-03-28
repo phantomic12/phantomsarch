@@ -71,8 +71,6 @@ jobs:
         with:
           pkgdir: ${{ matrix.pkg }}
           makepkgArgs: "--skipinteg"
-
-      - name:
       
       - name: Commit Failed Logs
         if: ${{ failure() }}
