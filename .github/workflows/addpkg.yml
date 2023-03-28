@@ -1,8 +1,11 @@
-name: Update PKGBUILDS
+name: add new PKGBUILD (ghweb)
 on:
-  schedule:
-    - cron: "*/30 * * * *"
   workflow_dispatch:
+    inputs:
+      new:
+        description: aur pkgname
+        required: true
+        type: string
 
 jobs:
   fetchsrc:
@@ -13,8 +16,8 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
 
-      - name: Fetch PKGBUILDS
-        run: cd misc-scripts && sh clone.sh
+      - name: Add package
+        run: echo https://aur.archlinux.org/${{ inputs.new }}.git >> sources.sh
 
       - name: Commit Changed Files
         run: |     
@@ -22,6 +25,6 @@ jobs:
           git config --global user.email 'action@github.com'
           git add -A
           git checkout gnome
-          git diff-index --quiet HEAD || git commit -am "update pkgbuilds"
+          git diff-index --quiet HEAD || git commit -am "add new package"
           git pull origin gnome --rebase=true # to avoid conflicts due to data races
           git push

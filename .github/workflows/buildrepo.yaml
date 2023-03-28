@@ -71,6 +71,8 @@ jobs:
         with:
           pkgdir: ${{ matrix.pkg }}
           makepkgArgs: "--skipinteg"
+
+      - name:
       
       - name: Commit Failed Logs
         if: ${{ failure() }}
@@ -93,17 +95,8 @@ jobs:
           tag: "repo"
           artifacts: "repo/*/*.zst"
           token: ${{ secrets.PAT }}
-      - name: Delete fail logs
-        run: |
-          find fails/preretry -name ${{ matrix.fail }} -exec rm -i {} \;
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
-          git add -A
-          git checkout gnome
-          git diff-index --quiet HEAD || git commit -am "Delete failed package"
-          git pull origin gnome --rebase=true # to avoid conflicts due to data races
-          git push
-          
+
+
   upload:
     if: ${{ always() }}
     needs: build
