@@ -1,3 +1,4 @@
+cd ..
 cd repo && remove *
 sh sources.sh
 ls *.git |xargs -n1 tar -xzf
