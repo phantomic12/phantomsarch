@@ -75,11 +75,6 @@ git clone https://aur.archlinux.org/qogir-gtk-theme-git.git
 git clone https://aur.archlinux.org/mcmojave-cursors.git
 git clone https://aur.archlinux.org/mkinitcpio-openswap.git
 git clone https://aur.archlinux.org/alpm_octopi_utils.git
-git clone https://aur.archlinux.org/clion.git
-git clone https://aur.archlinux.org/clion-lldb.git
-git clone https://aur.archlinux.org/clion-jre.git
-git clone https://aur.archlinux.org/clion-gdb.git
-git clone https://aur.archlinux.org/clion-cmake.git
 git clone https://aur.archlinux.org/github-desktop-bin.git
 git clone https://aur.archlinux.org/vscodium-bin-marketplace.git
 git clone https://aur.archlinux.org/distrobox.git
