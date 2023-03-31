@@ -1,3 +1,4 @@
+cd .. && cd repo
 git clone https://aur.archlinux.org/brave-nightly-bin.git
 git clone https://aur.archlinux.org/microsoft-edge-dev-bin.git
 git clone https://aur.archlinux.org/discord-canary.git
