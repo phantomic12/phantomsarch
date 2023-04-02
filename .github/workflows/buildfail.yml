@@ -1,5 +1,5 @@
 name: Rebuild Failed Packages
-on:
+n:
   push:
     paths-ignore:      
           - "iso/**"
