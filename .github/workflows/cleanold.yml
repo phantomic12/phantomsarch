@@ -22,7 +22,7 @@ jobs:
               aria2c -x 16 -s 16 https://github.com/$i
           done
 
-      - name: Upload Packages
+      - name: delete old packages
         run: sh misc-scripts/repodel.sh phn-repo
 
 
