@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  fetchsrc:
+  clean:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,6 +20,7 @@ jobs:
               echo Downloading $pkg
               aria2c -x 16 -s 16 https://github.com/$i
           done
+          ls -R
 
       - name: delete old packages
         run: sh misc-scripts/repodel.sh phn-repo
