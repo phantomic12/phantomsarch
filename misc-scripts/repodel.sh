@@ -6,8 +6,6 @@
 REPO_NAME=$1 
 DND="DO_NOT_DELETE"
 
-cd repo
-
 if [ ! -d $DND ]; then
 	mkdir $DND
 fi
