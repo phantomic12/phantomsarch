@@ -80,3 +80,4 @@ git clone https://aur.archlinux.org/vscodium-bin-marketplace.git
 git clone https://aur.archlinux.org/distrobox.git
 git clone https://aur.archlinux.org/termius.git
 git clone https://aur.archlinux.org/ticemu-git.git
+git clone https://aur.archlinux.org/payload-dumper-go.git
