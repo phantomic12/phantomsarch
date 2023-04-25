@@ -25,7 +25,7 @@ jobs:
           DND="DO_NOT_DELETE"
 
           if [ ! -d $DND ]; then
-	                mkdir $DND
+            mkdir $DND
           fi
 
           mv $(
