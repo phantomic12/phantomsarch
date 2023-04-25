@@ -49,6 +49,7 @@ jobs:
         with:
           allowUpdates: true
           replacesArtifacts: true
+          removeArtifacts: true
           tag: "repo"
           artifacts: "./*.zst"
           token: ${{ secrets.PAT }}
