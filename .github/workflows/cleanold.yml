@@ -1,8 +1,6 @@
 name: clean old packages
 on:
   workflow_dispatch:
-  push:
-    branches: [gnome]
   schedule:
     - cron: "0 0 */3 * *"
     
