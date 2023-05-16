@@ -81,3 +81,4 @@ git clone https://aur.archlinux.org/distrobox.git
 git clone https://aur.archlinux.org/termius.git
 git clone https://aur.archlinux.org/brave-bin.git
 git clone https://aur.archlinux.org/signal-desktop-beta.git
+git clone https://aur.archlinux.org/payload-dumper-go.git
