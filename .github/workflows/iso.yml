@@ -1,6 +1,6 @@
 name: Automatically Build Images
 
-n:
+on:
   push:
     branches: [gnome]
   schedule:
@@ -29,36 +29,51 @@ jobs:
         run: pacman -Sy --noconfirm --needed zip unzip
 
       - name: Build ISOs
-        run: sh misc-scripts/iso.sh ${{ matrix.variant }}
+        run: sh misc-scripts/iso.sh ${{ matrix.variant }} 
+      
+      - name: set env var
+        run: echo "ISO_DIR=$(find  -type f -name *.iso)" >> $GITHUB_ENV
 
       - name: Upload ISO to GHA
         uses: actions/upload-artifact@v3
         with:
           name: phantomsarch-${{ matrix.variant }}.iso
-          path: ${{ matrix.variant }}.iso
+          path: ${{ env.ISO_DIR }}
       
-      
+      - name: reset env var
+        run: echo "ISO_DIR=$(ISO_DIR::-4)" >> $GITHUB_ENV
 
-      - name: Setup SSH
-        uses: fastai/workflows/ssh@master
-        with:
-            ssh_key: ${{ secrets.SSH_KEY }}
-            key_file: id_ecdsa
-      - run: |
-          mkdir -p images/${{ matrix.variant }}-iso
-          mv ${{ matrix.variant }}.iso images/${{ matrix.variant }}-iso 
-          ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
-          sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ matrix.variant }}-iso"
-
+      - name: clean junk
+        run: sh misc-scripts/clean.sh ${{ env.ISO_DIR }}
       
       - name: Archive ISO
-        run: zip -r -s 2000m phantomsarch-${{ matrix.variant }}.zip images/${{ matrix.variant }}-iso
+        run: zip -r -s 2000m phantomsarch-${{ matrix.variant }}.zip ${{ env.ISO_DIR }}
 
       - name: Upload Artifacts to GH Release
         uses: ncipollo/release-action@v1.12.0
         with:
           allowUpdates: true
           replacesArtifacts: true
-          tag: "repo"
-          artifacts: "images/*.z*"
+          tag: "iso"
+          artifacts: "phantomsarch-*.*"
           token: ${{ secrets.PAT }}
+       
+       
+       
+  sf-upload:
+    runs-on: ubuntu-latest
+    steps:        
+      - name: download isos
+        uses: actions/download-artifact@v3
+
+      - name: Setup SSH
+        uses: fastai/workflows/ssh@master
+        with:
+              ssh_key: ${{ secrets.SSH_KEY }}
+              key_file: id_ecdsa
+
+      - run: |
+            mkdir -p images/${{ matrix.variant }}-iso
+            mv ${{ matrix.variant }}.iso images/${{ matrix.variant }}-iso 
+            ssh-keyscan frs.sourceforge.net >> ~/.ssh/known_hosts
+            sshpass -p "${{ secrets.PASSWORD }}" rsync -arsP -e ssh images/ "${{ secrets.USERNAME }}@frs.sourceforge.net:${{ matrix.variant }}-iso"
