@@ -16,6 +16,10 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
 
+
+      - name: Retrieve Sources
+        run: cd repo && wget https://aur.archlinux.org/cgit/aur.git/snapshot/${{ inputs.new }}.tar.gz && ls *.tar.gz |xargs -n1 tar -xzf && rm -rf *.tar.gz && find . -name "*.gitignore" -type f -delete && cd ..
+
       - name: Add package
         run: echo "git clone https://aur.archlinux.org/${{ inputs.new }}.git" >> misc-scripts/sources.sh
 
