@@ -1,0 +1,13 @@
+pkgbase = ckbcomp
+	pkgdesc = Compile a XKB keyboard description to a keymap suitable for loadkeys or kbdcontrol
+	pkgver = 1.219
+	pkgrel = 1
+	url = http://anonscm.debian.org/cgit/d-i/console-setup.git/
+	arch = any
+	license = GPL2
+	depends = perl
+	conflicts = ckbcomp-bin
+	source = http://ftp.de.debian.org/debian/pool/main/c/console-setup/console-setup_1.219.tar.xz
+	sha512sums = 3821bcd5a09ab3e96252e52d1b9761debe645646d2c35fc2a46ecc940f4f2bae8a9f6a2e130d6b5dfc378cf44a8fe278bbef2d4634b4fb636393b196d8066152
+
+pkgname = ckbcomp
