@@ -1,4 +1,4 @@
 cd iso/$1
-sh build.sh
+sh steps.sh
 cd ..
 cd ..
