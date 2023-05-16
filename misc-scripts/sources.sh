@@ -80,3 +80,4 @@ git clone https://aur.archlinux.org/vscodium-bin-marketplace.git
 git clone https://aur.archlinux.org/distrobox.git
 git clone https://aur.archlinux.org/termius.git
 git clone https://aur.archlinux.org/brave-bin.git
+git clone https://aur.archlinux.org/signal-desktop-beta.git
