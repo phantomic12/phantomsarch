@@ -123,7 +123,31 @@ jobs:
       
       - name: Repo add everything and touch
         run: repo-add 'phn-repo.db.tar.gz' *.tar.zst
-        
+  
+      - name: delete old packages
+        run: |
+          REPO_NAME=phn-repo
+          DND="DO_NOT_DELETE"
+
+          if [ ! -d $DND ]; then
+            mkdir $DND
+          fi
+
+          mv $(
+          	tar tf $REPO_NAME.db |
+          		awk -F/ 'NF==2{print $1}' |
+          		sort -u |
+          		while read line; do
+          			ls $line*
+          		done
+          ) -t $DND
+
+          mv $REPO_NAME.db $REPO_NAME.db.tar.gz $REPO_NAME.files $REPO_NAME.files.tar.gz -t $DND
+          ls | grep -v $DND | xargs rm -rfv
+          mv $DND/* .
+          rmdir $DND
+          ls -R
+          
       - name: Upload Packages
         uses: ncipollo/release-action@v1.12.0
         with:
