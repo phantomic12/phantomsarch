@@ -82,4 +82,11 @@ git clone https://aur.archlinux.org/termius.git
 git clone https://aur.archlinux.org/brave-bin.git
 git clone https://aur.archlinux.org/signal-desktop-beta.git
 git clone https://aur.archlinux.org/payload-dumper-go.git
-
+git clone https://github.com/phantomic12/ckbcomp.git
+cd ckbcomp
+rm -rf .git
+cd ..
+git clone https://github.com/phantomic12/calamares.git
+cd calamares
+rm -rf .git
+cd ..
