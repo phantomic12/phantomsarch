@@ -96,7 +96,6 @@ jobs:
 
 
   upload:
-    if: ${{ always() }}
     needs: build
     runs-on: ubuntu-latest
     container:
@@ -147,7 +146,7 @@ jobs:
           mv $DND/* .
           rmdir $DND
           ls -R
-          
+
       - name: Upload Packages
         uses: ncipollo/release-action@v1.12.0
         with:
