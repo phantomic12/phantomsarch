@@ -1,4 +1,4 @@
-#calamares PKGBUILD for Arch Linux GUI e
+#calamares PKGBUILD for Arch Linux GUI
 
 pkgname=calamares
 pkgver=3.2.60
