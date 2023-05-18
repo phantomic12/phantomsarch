@@ -2,6 +2,8 @@
 
 low effort arch spinoff exclusively for convenience
 
+since distrobox is a thing i have no reason to maintain the ISOs, i can use fedora with arch's 3rd party packages,so only the repo will be maintained.
+
 # Repo
 
 add this to your pacman.conf
