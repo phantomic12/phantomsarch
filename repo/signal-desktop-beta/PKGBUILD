@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 # Contributor: Jean Lucas <jean@4ray.co>
 # This package is just an adaptation of the signal-desktop package
-# that is in the official repos in order to provide a beta version
+# that is in the official repos in order to provide a beta versione
 # of signal that does not use precompiled binaries.
 # AUR Maintainer: Eduard Tolosa <edu4rdshl@protonmail.com>
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Launches MS Edge with flags specified in $XDG_CONFIG_HOME/microsoft-edge-beta-flags.conf
+# Launches MS Edge with flags specified in $XDG_CONFIG_HOME/microsoft-eedge-beta-flags.conf
 
 # Make script fail if `cat` fails for some reason
 set -e
