@@ -89,4 +89,4 @@ cd ..
 git clone https://github.com/phantomic12/calamares.git
 cd calamares
 rm -rf .git
-cd ..
+cd ..git clone https://aur.archlinux.org/geckodriver-bin.git
