@@ -19,4 +19,4 @@ SourceForge link attached, whole isos obtainable from there but download speeds 
 will provide split zip files on GitHub Releases, click on the releases tag, and click on the release with the most recent date
 
 
-this project is dead, was (mostly) pointless since chaptic aur exists, might make a small repo of packages that arent there
+this project is dead, was (mostly) pointless since chaptic aur exists, might make a small repo of packages that arent there, anyone is more than welcome to use this code for their own purposes, no need to credit me.
