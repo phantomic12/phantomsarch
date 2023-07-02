@@ -17,3 +17,6 @@ Server = https://github.com/phantomic12/phantomsarch/releases/download/repo/
 SourceForge link attached, whole isos obtainable from there but download speeds are rather slow
 (COMING SOON)
 will provide split zip files on GitHub Releases, click on the releases tag, and click on the release with the most recent date
+
+
+this project is dead, was (mostly) pointless since chaptic aur exists, might make a small repo of packages that arent there
